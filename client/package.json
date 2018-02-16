@@ -12,7 +12,8 @@
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
     "redux-form": "^7.2.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.78.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,6 +23,9 @@
   },
   "proxy": {
     "/posts": {
+      "target": "http://localhost:5000"
+    },
+    "/login": {
       "target": "http://localhost:5000"
     }
   }

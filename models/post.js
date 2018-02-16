@@ -2,14 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const postSchema = new Schema({
-    googleId: String,
-    name: String,
-    email: String,
-    twitterToken: String,
-    twitterTokenSecret: String,
-    instaToken: String,
-    instaId: String
+	author: String,
+	title: String,
+	time: { type : Date, default: Date.now },
+	content: String,
+	attachment: String
 });
 
 
-mongoose.model('post', postSchema);
+mongoose.model('Post', postSchema);

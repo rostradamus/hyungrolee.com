@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getPosts } from '../actions';
+import PostComponent from './PostComponent';
+import { Card } from 'semantic-ui-react';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -8,13 +10,14 @@ class PostContainer extends Component {
     }
 
     render() {
+
     	const posts = this.props.posts.map(post => {
     		return (
-    			<div key={ post.title }>
+    			<Card key={ post._id }>
     				{ post.content }
-    			</div>
+    			</Card>
     		)
-    	})
+    	});
 
         return (
             <div>{ posts }</div>
