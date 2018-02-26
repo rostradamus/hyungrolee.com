@@ -9,6 +9,7 @@ const morgan = require('morgan');
 // const twitter = require('./services/twitterClient');
 // Models
 require('./models/Post');
+require('./models/User');
 
 // DATABASE PROXY to check go on mlab.com
 mongoose.connect(config.mongoURI);

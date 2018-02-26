@@ -1,8 +1,11 @@
-import { FETCH_USER } from '../actions/actionTypes';
+import { userConstants } from '../actions/actionTypes';
 
 export default (state = null, action) => {
 	switch (action.type) {
-		case FETCH_USER: {
+		case userConstants.LOGIN_REQUEEST: {
+			return action.payload || null;
+		}
+		case userConstants.LOGIN_SUCCESS: {
 			return action.payload || null;
 		}
 		default:

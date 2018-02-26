@@ -1,16 +1,51 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
 const Post = mongoose.model('Post');
+let LocalStrategy = require('passport-local').Strategy;
+const User = mongoose.model('User');
 
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) => User.findById(id).then(user => done(null, user)));
+
+passport.use(new LocalStrategy(
+  (username, password, done) => {
+    User.findOne({ username: username }, (err, user) => {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!verifyPassword(password, user)) { return done(null, false); };
+      // if (!user.verifyPassword(password)) { return done(null, false); };
+      return done(null, user);
+
+      function verifyPassword(password, user) {
+      	return user.password === password;
+      }
+    });
+  }
+));
+
+// TODO: Password Encryption is required (See bcrypt)
 module.exports = app => {
 
     app.post(
-        '/login',
-        passport.authenticate('local'),
-        (req, res) => {
-            // If this function gets called, authentication was successful.
-            // `req.user` contains the authenticated user.
-            res.redirect('/');
-        });
-    
+      '/users/authenticate',
+      passport.authenticate('local'),
+      (req, res) => {
+        console.log(req.session);
+      	// console.log(res);
+          // If this function gets called, authentication was successful.
+          // `req.user` contains the authenticated user.
+          // res.redirect('/');
+          res.send(req.user);
+    });
+
+    app.get('/users/current_user', (req,res) => {
+      res.send(req.user);
+    });
+
+    app.get('/users/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+    });
 }

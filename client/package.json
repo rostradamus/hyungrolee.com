@@ -25,7 +25,7 @@
     "/posts": {
       "target": "http://localhost:5000"
     },
-    "/login": {
+    "/users/*": {
       "target": "http://localhost:5000"
     }
   }

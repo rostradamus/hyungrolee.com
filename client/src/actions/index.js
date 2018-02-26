@@ -7,3 +7,4 @@ export const getPosts = () => {
 		dispatch({type: GET_POSTS, payload: res.data});
 	}
 }
+
