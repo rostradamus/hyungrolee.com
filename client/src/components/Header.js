@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 class Header extends Component {
-    state = {}
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    
 
     handleItemClick(e, { name }) {
         this.setState({ activeItem: name });
@@ -17,12 +21,12 @@ class Header extends Component {
     renderContent() {
         const { activeItem } = this.state;
         switch (this.getAuthStatus()) {
-            case undefined:
-            case null:
-            case false:
-                return <Menu.Item key='login' name='login' position='right' active={activeItem === 'login'} href='/login' />;
-            default:
-                return <Menu.Item name='logout' position='right' active={activeItem === 'logout'} href='/users/logout' />;
+        case undefined:
+        case null:
+        case false:
+            return <Menu.Item key='login' name='login' position='right' active={activeItem === 'login'} href='/login' />;
+        default:
+            return <Menu.Item name='logout' position='right' active={activeItem === 'logout'} href='/users/logout' />;
         }
     }
 
@@ -32,7 +36,7 @@ class Header extends Component {
             const menuItems = [
                 <Menu.Item key='jobs' name='jobs' active={activeItem === 'jobs'} onClick={this.handleItemClick.bind(this)} />,
                 <Menu.Item key='locations' name='locations' active={activeItem === 'locations'} onClick={this.handleItemClick.bind(this)} />
-            ]
+            ];
             return menuItems;
         }
     }

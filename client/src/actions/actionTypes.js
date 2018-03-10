@@ -1,4 +1,4 @@
-export const GET_POSTS =  "GET_POSTS";
+export const GET_POSTS =  'GET_POSTS';
 
 export const userConstants = {
     REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',

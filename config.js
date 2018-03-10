@@ -1,4 +1,4 @@
 module.exports = {
-  mongoURI: 'mongodb://localhost/pblog',
-  cookieKey: 'pblog'
+    mongoURI: 'mongodb://localhost/pblog',
+    cookieKey: 'pblog'
 };

@@ -14,22 +14,22 @@ class PostContainer extends Component {
     }
 
     render() {
-    	const posts = this.props.posts.map(post => {
-    		return (
-    			<Card key={ post._id }>
-    				{ post.content }
-    			</Card>
-    		)
-    	});
+        const posts = this.props.posts.map(post => {
+            return (
+                <Card key={ post._id }>
+                    { post.content }
+                </Card>
+            );
+        });
 
         return (
             <div>{ posts }</div>
         );
-    };
+    }
 }
 
 const mapStateToProps = state => ({
-	posts: state.posts
+    posts: state.posts
 });
 
 export default connect(mapStateToProps, postActions)(PostContainer);

@@ -7,36 +7,36 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import authActions from '../actions/authActions';
 
 class App extends Component {
-	componentDidMount() {
-		if (!this.props.user)
-			this.props.fetch();
-	}
+    componentDidMount() {
+        if (!this.props.user)
+            this.props.fetch();
+    }
 
-	render() {
-		return (
-			<Router>
-				{ (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
-			</Router>
-		);
-	}
+    render() {
+        return (
+            <Router>
+                { (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
+            </Router>
+        );
+    }
 
-	_renderHome() {
-		return (
-			<div>
-				<Header />
-				<PostContainer />
-			</div>
-		);
-	}
+    _renderHome() {
+        return (
+            <div>
+                <Header />
+                <PostContainer />
+            </div>
+        );
+    }
 
-	_renderNeedAuth() {
-		return (
-			<div>
-				<Header />
-				<Auth />
-			</div>
-		);
-	}
+    _renderNeedAuth() {
+        return (
+            <div>
+                <Header />
+                <Auth />
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = state => ({user: state.auth});

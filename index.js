@@ -16,10 +16,10 @@ mongoose.connect(config.mongoURI);
 const app = express();
 app.use(morgan('dev'));
 app.use(
-  cookieSession({
-    maxAge: 1 * 1 * 60 * 60 * 1000,
-    keys: [config.cookieKey]
-  })
+    cookieSession({
+        maxAge: 1 * 1 * 60 * 60 * 1000,
+        keys: [config.cookieKey]
+    })
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

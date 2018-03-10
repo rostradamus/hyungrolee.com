@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import authActions from '../actions/authActions';
 import { connect } from 'react-redux';
 
@@ -12,9 +12,9 @@ class Auth extends Component {
             username: '',
             password: ''
         };
-    };
+    }
 
-    _handleClick(event) {
+    _handleClick() {
         const {username, password} = this.state;
         this.props.onClickHandler(username, password);
     }
@@ -32,9 +32,9 @@ class Auth extends Component {
                 `}
                 </style>
                 <Grid
-                textAlign='center'
-                style={{ height: '100%' }}
-                verticalAlign='middle'
+                    textAlign='center'
+                    style={{ height: '100%' }}
+                    verticalAlign='middle'
                 >
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as='h2' color='teal' textAlign='center'>
@@ -43,19 +43,19 @@ class Auth extends Component {
                         <Form size='large'>
                             <Segment stacked>
                                 <Form.Input
-                                fluid
-                                icon='user'
-                                iconPosition='left'
-                                placeholder='E-mail address'
-                                onChange = {(event,newValue) => this.setState({username:newValue.value})}
+                                    fluid
+                                    icon='user'
+                                    iconPosition='left'
+                                    placeholder='E-mail address'
+                                    onChange = {(event,newValue) => this.setState({username:newValue.value})}
                                 />
                                 <Form.Input
-                                fluid
-                                icon='lock'
-                                iconPosition='left'
-                                placeholder='Password'
-                                type='password'
-                                onChange = {(event,newValue) => this.setState({password:newValue.value})}
+                                    fluid
+                                    icon='lock'
+                                    iconPosition='left'
+                                    placeholder='Password'
+                                    type='password'
+                                    onChange = {(event,newValue) => this.setState({password:newValue.value})}
                                 />
 
                                 <Button color='teal' fluid size='large' onClick={event => this._handleClick(event)}>
@@ -70,9 +70,9 @@ class Auth extends Component {
                 </Grid>
             </div>
         );
-    };
+    }
 }
-const mapStateToProps = state => ({user: state.auth})
+const mapStateToProps = state => ({user: state.auth});
 
 export default connect(mapStateToProps, authActions)(Auth);
 

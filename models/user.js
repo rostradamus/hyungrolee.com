@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-let currentUser;
 
 const userSchema = new Schema({
     username: String,
@@ -8,6 +7,5 @@ const userSchema = new Schema({
     password: String,
     token: String
 }, { collection: 'User' });
-
 
 mongoose.model('User', userSchema);
