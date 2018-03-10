@@ -4,8 +4,8 @@ const Post = mongoose.model('Post');
 let LocalStrategy = require('passport-local').Strategy;
 const User = mongoose.model('User');
 
-passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => User.findById(id).then(user => done(null, user)));
+passport.serializeUser((user, done) => done(null, user._id));
+passport.deserializeUser((id, done) => User.findById(id).then(user => done(null, { _id: user._id })));
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
@@ -16,7 +16,8 @@ passport.use(new LocalStrategy(
       }
       if (!verifyPassword(password, user)) { return done(null, false); };
       // if (!user.verifyPassword(password)) { return done(null, false); };
-      return done(null, user);
+      const _id = user._id;
+      return done(null, { _id });
 
       function verifyPassword(password, user) {
       	return user.password === password;
@@ -32,15 +33,17 @@ module.exports = app => {
       '/users/authenticate',
       passport.authenticate('local'),
       (req, res) => {
-        console.log(req.session);
       	// console.log(res);
-          // If this function gets called, authentication was successful.
-          // `req.user` contains the authenticated user.
-          // res.redirect('/');
-          res.send(req.user);
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        // res.redirect('/');
+        res.send(req.user);
     });
 
     app.get('/users/current_user', (req,res) => {
+      if (!req.user) {
+        res.status(401);
+      };
       res.send(req.user);
     });
 

@@ -6,7 +6,6 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const morgan = require('morgan');
 
-// const twitter = require('./services/twitterClient');
 // Models
 require('./models/Post');
 require('./models/User');
@@ -17,13 +16,13 @@ mongoose.connect(config.mongoURI);
 const app = express();
 app.use(morgan('dev'));
 app.use(
-    cookieSession({
-        maxAge: 1 * 1 * 60 * 60 * 1000,
-        keys: [config.cookieKey]
-    })
+  cookieSession({
+    maxAge: 1 * 1 * 60 * 60 * 1000,
+    keys: [config.cookieKey]
+  })
 );
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 

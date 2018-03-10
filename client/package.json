@@ -28,5 +28,8 @@
     "/users/*": {
       "target": "http://localhost:5000"
     }
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2"
   }
 }

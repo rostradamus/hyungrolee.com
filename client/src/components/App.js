@@ -4,19 +4,18 @@ import { connect } from 'react-redux';
 import Auth from './Auth';
 import Header from './Header';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import userActions from '../actions/userActions';
-// import './App.css';
+import authActions from '../actions/authActions';
 
 class App extends Component {
-	componentWillMount() {
-		this.props.fetch();
+	componentDidMount() {
+		if (!this.props.user)
+			this.props.fetch();
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<Router>
-				{ this.props.user ? this._renderHome() : this._renderNeedAuth() }
+				{ (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
 			</Router>
 		);
 	}
@@ -42,4 +41,4 @@ class App extends Component {
 
 const mapStateToProps = state => ({user: state.auth});
 
-export default connect(mapStateToProps, userActions)(App);
+export default connect(mapStateToProps, authActions)(App);

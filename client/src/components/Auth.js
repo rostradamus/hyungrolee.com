@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
-import userActions from '../actions/userActions';
+import authActions from '../actions/authActions';
 import { connect } from 'react-redux';
 
 
@@ -15,7 +15,6 @@ class Auth extends Component {
     };
 
     _handleClick(event) {
-        console.log(this.props);
         const {username, password} = this.state;
         this.props.onClickHandler(username, password);
     }
@@ -75,7 +74,7 @@ class Auth extends Component {
 }
 const mapStateToProps = state => ({user: state.auth})
 
-export default connect(mapStateToProps, userActions)(Auth);
+export default connect(mapStateToProps, authActions)(Auth);
 
 
 

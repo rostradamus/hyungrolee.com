@@ -10,9 +10,14 @@ class Header extends Component {
         this.setState({ activeItem: name });
     }
 
+    getAuthStatus() {
+        return this.props.auth && this.props.auth._id;
+    }
+
     renderContent() {
         const { activeItem } = this.state;
-        switch (this.props.auth) {
+        switch (this.getAuthStatus()) {
+            case undefined:
             case null:
             case false:
                 return <Menu.Item key='login' name='login' position='right' active={activeItem === 'login'} href='/login' />;
@@ -22,7 +27,7 @@ class Header extends Component {
     }
 
     renderUserNavigation() {
-        if(this.props.auth) {
+        if(this.getAuthStatus()) {
             const { activeItem } = this.state;
             const menuItems = [
                 <Menu.Item key='jobs' name='jobs' active={activeItem === 'jobs'} onClick={this.handleItemClick.bind(this)} />,

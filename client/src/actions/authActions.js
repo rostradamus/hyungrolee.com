@@ -1,14 +1,14 @@
 import { userConstants } from './actionTypes';
 import axios from 'axios';
 
-const userActions = dispatch => ({
+const authActions = dispatch => ({
 	fetch: async () => {
 		console.log('fetch is called!');
-		let user;
-		dispatch(request(user));
+		let res;
+		dispatch(request(res));
 		try {
-			user = await axios.get('users/current_user');
-			dispatch(success(user));
+			res = await axios.get('users/current_user');
+			dispatch(success(res.data));
 		}
 		catch (err) {
 			dispatch(failure(err));
@@ -20,10 +20,10 @@ const userActions = dispatch => ({
 	onClickHandler: async (username, password) => {
 		console.log('onClickHandler is called!');
 		dispatch(request({ username }));
-		let user;
+		let res;
 		try {
-			user = await axios.post('/users/authenticate', { username, password });
-			dispatch(success(user));
+			res = await axios.post('/users/authenticate', { username, password });
+			dispatch(success(res.data));
 		}
 		catch (err) {
 			dispatch(failure(err));
@@ -34,4 +34,4 @@ const userActions = dispatch => ({
 	}
 });
 
-export default userActions;
+export default authActions;
