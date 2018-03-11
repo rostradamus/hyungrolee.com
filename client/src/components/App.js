@@ -5,6 +5,7 @@ import Auth from './Auth';
 import Header from './Header';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import authActions from '../actions/authActions';
+import './App.less';
 
 class App extends Component {
     componentDidMount() {
@@ -22,18 +23,22 @@ class App extends Component {
 
     _renderHome() {
         return (
-            <div>
+            <div className='App'>
                 <Header />
-                <PostContainer />
+                <div className='Wrapper'>
+                    <PostContainer />
+                </div>
             </div>
         );
     }
 
     _renderNeedAuth() {
         return (
-            <div>
+            <div className='App'>
                 <Header />
-                <Auth />
+                <div className='Wrapper'>
+                    <Auth />
+                </div>
             </div>
         );
     }
