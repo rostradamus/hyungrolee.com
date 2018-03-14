@@ -3,6 +3,7 @@ import PostList from './PostList';
 import { connect } from 'react-redux';
 import Auth from './Auth';
 import Header from './Header';
+import PostForm from './PostForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import authActions from '../actions/authActions';
 import './App.less';
@@ -26,7 +27,8 @@ class App extends Component {
             <div className='App'>
                 <Header />
                 <div className='Wrapper'>
-                    <PostList />
+                    <Route path="/post/list" component={PostList}/>
+                    <Route path="/post/form" component={PostForm}/>
                 </div>
             </div>
         );

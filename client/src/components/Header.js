@@ -34,6 +34,9 @@ class Header extends Component {
         if(this.getAuthStatus()) {
             const { activeItem } = this.state;
             const menuItems = [
+                <Link to='/post/list' key='post_list'>
+                    <Menu.Item key='blog' name='blog' active={activeItem === 'blog'} onClick={this.handleItemClick.bind(this)} />
+                </Link>,
                 <Menu.Item key='jobs' name='jobs' active={activeItem === 'jobs'} onClick={this.handleItemClick.bind(this)} />,
                 <Menu.Item key='locations' name='locations' active={activeItem === 'locations'} onClick={this.handleItemClick.bind(this)} />
             ];
@@ -47,7 +50,7 @@ class Header extends Component {
         return (
             <Menu inverted>
                 <Menu.Item header>ro.Stradamus</Menu.Item>
-                <Menu.Item key='Home' name='Home' active={activeItem === 'Home'} onClick={ this.handleItemClick.bind(this) } href='/' />
+                <Menu.Item key='home' name='home' active={activeItem === 'home'} onClick={ this.handleItemClick.bind(this) } href='/' />
                 { this.renderUserNavigation() }
                 { this.renderContent() }
             </Menu>
