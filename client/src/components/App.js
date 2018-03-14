@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PostContainer from './PostContainer';
+import PostList from './PostList';
 import { connect } from 'react-redux';
 import Auth from './Auth';
 import Header from './Header';
@@ -10,7 +10,7 @@ import './App.less';
 class App extends Component {
     componentDidMount() {
         if (!this.props.user)
-            this.props.fetch();
+            this.props.fetchUser();
     }
 
     render() {
@@ -26,7 +26,7 @@ class App extends Component {
             <div className='App'>
                 <Header />
                 <div className='Wrapper'>
-                    <PostContainer />
+                    <PostList />
                 </div>
             </div>
         );

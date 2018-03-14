@@ -47,9 +47,7 @@ class Header extends Component {
         return (
             <Menu inverted>
                 <Menu.Item header>ro.Stradamus</Menu.Item>
-                <Menu.Item name='Home' active={activeItem === 'Home'} onClick={this.handleItemClick.bind(this)}>
-                    <Link to='/'> Home </Link>
-                </Menu.Item>
+                <Menu.Item key='Home' name='Home' active={activeItem === 'Home'} onClick={ this.handleItemClick.bind(this) } href='/' />
                 { this.renderUserNavigation() }
                 { this.renderContent() }
             </Menu>

@@ -2,7 +2,7 @@ import { userConstants } from './actionTypes';
 import axios from 'axios';
 
 const authActions = dispatch => ({
-    fetch: async () => {
+    fetchUser: async () => {
         console.log('fetch is called!');
         let res;
         dispatch(request(res));
