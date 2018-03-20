@@ -3,7 +3,18 @@ import axios from 'axios';
 
 export const postActions = dispatch => ({
     getPosts: async () => {
-        const res = await axios.get('/posts');
+        const res = await axios.get('/api/posts');
         dispatch({type: GET_POSTS, payload: res.data});
+    },
+    submitPost: async (data) => {
+        let res;
+        try {
+            res = await axios.post('/api/posts/new', data);
+        } catch (err) {
+            alert(err);
+        }
+        if (res.status === 200) {
+            window.location = '/post/list';
+        }
     }
 });

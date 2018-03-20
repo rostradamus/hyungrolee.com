@@ -7,22 +7,12 @@ class PostCard extends Component {
     render() {
         const { title, time, content } = this.props.post;
         return (
-            <Card>
+            <Card color='grey'>
                 {/*<Image src='../assets/images/sample_img.png' />*/}
                 <Card.Content>
-                    <Card.Header>
-                        <Link to='/'>
-                        { title }
-                        </Link>
-                    </Card.Header>
-                    <Card.Meta>
-                        <span className='date'>
-                            { time }
-                        </span>
-                    </Card.Meta>
-                    <Card.Description>
-                        { content }
-                    </Card.Description>
+                    <Card.Header as={ Link } to='/' content={title} />
+                    <Card.Meta content={time} />
+                    <Card.Description content={content} />
                 </Card.Content>
                 <Card.Content extra>
                     <Icon name='user' />

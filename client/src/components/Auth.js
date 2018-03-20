@@ -9,14 +9,14 @@ class Auth extends Component {
     constructor(props) {
         super(props);
         this.state={
-            username: '',
+            email: '',
             password: ''
         };
     }
 
     _handleClick() {
-        const {username, password} = this.state;
-        this.props.onClickHandler(username, password);
+        const {email, password} = this.state;
+        this.props.onClickHandler(email, password);
     }
 
     render() {
@@ -47,7 +47,7 @@ class Auth extends Component {
                                     icon='user'
                                     iconPosition='left'
                                     placeholder='E-mail address'
-                                    onChange = {(event,newValue) => this.setState({username:newValue.value})}
+                                    onChange = {(event,newValue) => this.setState({email:newValue.value})}
                                 />
                                 <Form.Input
                                     fluid

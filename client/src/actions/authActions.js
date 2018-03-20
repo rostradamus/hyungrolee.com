@@ -7,7 +7,7 @@ const authActions = dispatch => ({
         let res;
         dispatch(request(res));
         try {
-            res = await axios.get('users/current_user');
+            res = await axios.get('/api/users/current_user');
             dispatch(success(res.data));
         }
         catch (err) {
@@ -17,12 +17,12 @@ const authActions = dispatch => ({
         function success(user) { return { type: userConstants.LOGIN_SUCCESS, payload:user }; }
         function failure(error) { return { type: userConstants.LOGIN_FAILURE, payload:error }; }
     },
-    onClickHandler: async (username, password) => {
+    onClickHandler: async (email, password) => {
         console.log('onClickHandler is called!');
-        dispatch(request({ username }));
+        dispatch(request({ email }));
         let res;
         try {
-            res = await axios.post('/users/authenticate', { username, password });
+            res = await axios.post('/api/users/authenticate', { email, password });
             dispatch(success(res.data));
         }
         catch (err) {

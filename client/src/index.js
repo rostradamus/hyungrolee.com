@@ -14,8 +14,8 @@ window.axios = axios;
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk, logger));
 
 ReactDOM.render(
-    <Provider store={ store }>
-        <App />
-    </Provider>,
-    document.querySelector('#root')
+  <Provider store={ store }>
+    <App />
+  </Provider>,
+  document.querySelector('#root')
 );
