@@ -10,33 +10,33 @@ class Header extends Component {
   }
   
 
-  handleItemClick(e, { name }) {
+  _handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
   }
 
-  getAuthStatus() {
+  _getAuthStatus() {
     return this.props.auth && this.props.auth._id;
   }
 
   renderContent() {
     const { activeItem } = this.state;
-    switch (this.getAuthStatus()) {
+    switch (this._getAuthStatus()) {
       case undefined:
       case null:
       case false:
-      return <Menu.Item key='login' name='login' position='right' active={activeItem === 'login'} href='/login' />;
+        return <Menu.Item key='login' name='login' position='right' href='/login' />;
       default:
-      return <Menu.Item name='logout' position='right' active={activeItem === 'logout'} href='/users/logout' />;
+        return <Menu.Item name='logout' position='right' href='/api/users/logout' />;
     }
   }
 
   renderUserNavigation() {
-    if(this.getAuthStatus()) {
+    if(this._getAuthStatus()) {
       const { activeItem } = this.state;
       const menuItems = [
-      <Menu.Item as={ Link } to='/post/list' key='blog' name='blog' active={activeItem === 'blog'} onClick={this.handleItemClick.bind(this)} />,
-      <Menu.Item key='jobs' name='jobs' active={activeItem === 'jobs'} onClick={this.handleItemClick.bind(this)} />,
-      <Menu.Item key='locations' name='locations' active={activeItem === 'locations'} onClick={this.handleItemClick.bind(this)} />
+        <Menu.Item as={ Link } to='/post/list' key='blog' name='blog' active={activeItem === 'blog'} onClick={this._handleItemClick.bind(this)} />,
+        <Menu.Item key='jobs' name='jobs' active={activeItem === 'jobs'} onClick={this._handleItemClick.bind(this)} />,
+        <Menu.Item key='locations' name='locations' active={activeItem === 'locations'} onClick={this._handleItemClick.bind(this)} />
       ];
       return menuItems;
     }
@@ -47,19 +47,18 @@ class Header extends Component {
 
     return (
       <Segment inverted>
-      <Menu inverted pointing secondary>
-        <Menu.Item header>ro.Stradamus</Menu.Item>
-        <Menu.Item 
-        as={ Link }
-        to={'/'}
-        key='home'
-        name='home'
-        active={activeItem === 'home'}
-        onClick={ this.handleItemClick.bind(this)}
-        />
-        { this.renderUserNavigation() }
-        { this.renderContent() }
-      </Menu>
+        <Menu inverted pointing secondary>
+          <Menu.Item header>ro.Stradamus</Menu.Item>
+          <Menu.Item 
+            as={ Link }
+            to={'/'}
+            key='home'
+            name='home'
+            active={activeItem === 'home'}
+            onClick={ this._handleItemClick.bind(this)} />
+          { this.renderUserNavigation() }
+          { this.renderContent() }
+        </Menu>
       </Segment>
       );
   }

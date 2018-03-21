@@ -5,45 +5,42 @@ import Auth from './Auth';
 import Header from './Header';
 import PostForm from './PostForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 import authActions from '../actions/authActions';
 import './App.less';
 
 class App extends Component {
-    componentDidMount() {
-        if (!this.props.user)
-            this.props.fetchUser();
-    }
+  componentWillMount() {
+    if (!this.props.user)
+      this.props.fetchUser();
+  }
 
-    render() {
-        return (
-            <Router>
-                { (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
-            </Router>
-        );
-    }
+  render() {
+    return (
+      <Router>
+        <div className='App'>
+          <Header />
+          <Container className='Wrapper'>
+            { (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
+          </Container>
+        </div>
+      </Router>
+      );
+  }
 
-    _renderHome() {
-        return (
-            <div className='App'>
-                <Header />
-                <div className='Wrapper'>
-                    <Route path="/post/list" component={PostList}/>
-                    <Route path="/post/form" component={PostForm}/>
-                </div>
-            </div>
-        );
-    }
+  _renderHome() {
+    const routes = [
+        <Route key='post_list' path="/post/list" component={PostList}/>,
+        <Route key='post_form' path="/post/form" component={PostForm}/>
+      ];
+    return routes;
+  }
 
-    _renderNeedAuth() {
-        return (
-            <div className='App'>
-                <Header />
-                <div className='Wrapper'>
-                    <Auth />
-                </div>
-            </div>
-        );
-    }
+  _renderNeedAuth() {
+    return (
+        <Auth />
+      );
+  }
 }
 
 const mapStateToProps = state => ({user: state.auth});
