@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const authActions = dispatch => ({
     fetchUser: async () => {
-        console.log('fetch is called!');
         let res;
         dispatch(request(res));
         try {
@@ -18,7 +17,6 @@ const authActions = dispatch => ({
         function failure(error) { return { type: userConstants.LOGIN_FAILURE, payload:error }; }
     },
     onClickHandler: async (email, password) => {
-        console.log('onClickHandler is called!');
         dispatch(request({ email }));
         let res;
         try {
