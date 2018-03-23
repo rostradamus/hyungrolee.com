@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PostList from './PostList';
 import { connect } from 'react-redux';
 import Auth from './Auth';
-import Header from './Header';
+import { Header, SlideBar } from './frames';
 import PostForm from './PostForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
@@ -10,19 +10,31 @@ import authActions from '../actions/authActions';
 import './App.less';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      slideBarVisible: false
+    }
+  }
+
   componentWillMount() {
     if (!this.props.user)
       this.props.fetchUser();
   }
 
+  _sendToggleToSlideBar() {
+    this.setState({
+      slideBarVisible: !this.state.slideBarVisible
+    });
+  }
+
   render() {
+    const segment = (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth();
     return (
       <Router>
         <div className='App'>
-          <Header />
-          <Container className='Wrapper'>
-            { (this.props.user && this.props.user._id) ? this._renderHome() : this._renderNeedAuth() }
-          </Container>
+          <Header toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
+          <SlideBar pusher={ segment } visible={ this.state.slideBarVisible } />
         </div>
       </Router>
       );

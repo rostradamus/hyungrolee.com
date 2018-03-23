@@ -6,6 +6,8 @@ import reduxThunk from 'redux-thunk';
 import logger from 'redux-logger';
 import App from './components/App';
 import reducers from './reducers';
+import './index.less';
+import 'semantic-ui-css/semantic.min.css';
 
 import axios from 'axios';
 window.axios = axios;
