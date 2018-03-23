@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
-import authActions from '../actions/authActions';
+import authActions from 'Actions/authActions';
 import { connect } from 'react-redux';
 
 
@@ -40,13 +40,14 @@ class Auth extends Component {
                         <Header as='h2' color='teal' textAlign='center'>
                             {' '}Log-in to your account
                         </Header>
-                        <Form size='large'>
+                        <Form size='large' autoComplete="on">
                             <Segment stacked>
                                 <Form.Input
                                     fluid
                                     icon='user'
                                     iconPosition='left'
                                     placeholder='E-mail address'
+                                    autoComplete='username'
                                     onChange = {(event,newValue) => this.setState({email:newValue.value})}
                                 />
                                 <Form.Input
@@ -55,6 +56,7 @@ class Auth extends Component {
                                     iconPosition='left'
                                     placeholder='Password'
                                     type='password'
+                                    autoComplete="current-password"
                                     onChange = {(event,newValue) => this.setState({password:newValue.value})}
                                 />
 

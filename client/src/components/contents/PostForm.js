@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Checkbox, Form, TextArea } from 'semantic-ui-react';
-import { postActions } from '../actions';
+import { postActions } from 'Actions';
 
 class PostForm extends Component {
 

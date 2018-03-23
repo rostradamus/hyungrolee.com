@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import PostList from './PostList';
 import { connect } from 'react-redux';
-import Auth from './Auth';
+import { Auth, PostList, PostForm} from './contents';
 import { Header, SlideBar } from './frames';
-import PostForm from './PostForm';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import authActions from '../actions/authActions';
+import authActions from 'Actions/authActions';
 import './App.less';
 
 class App extends Component {
