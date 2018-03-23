@@ -9,9 +9,15 @@ class SlideBar extends Component {
 
   render() {
     return (
-      <div className='slide_bar'>
         <Sidebar.Pushable as={Segment} className='frame_pushable'>
-          <Sidebar as={Menu} animation='overlay' width='thin' visible={ this.props.visible } icon='labeled' vertical inverted>
+          <Sidebar 
+            as={Menu}
+            animation='overlay'
+            width='wide'
+            visible={ this.props.visible }
+            icon='labeled'
+            vertical
+            inverted>
             <Menu.Item name='home'>
               <Icon name='home' />
               Home
@@ -29,7 +35,6 @@ class SlideBar extends Component {
             { this.props.pusher }
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-      </div>
     )
   }
 }

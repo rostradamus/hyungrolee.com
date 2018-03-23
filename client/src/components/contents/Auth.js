@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
 import { connect } from 'react-redux';
+import './Auth.less';
 
 
 // TODO: Password Encryption is required (See bcrypt)
@@ -14,33 +15,23 @@ class Auth extends Component {
         };
     }
 
-    _handleClick() {
+    _submitHandler() {
         const {email, password} = this.state;
         this.props.onClickHandler(email, password);
     }
 
     render() {
-        // let onClickHandler = () => this.props.onClickHandler(name, post);
         return (
             <div className='login-form'>
-                <style>{`
-                    body > div,
-                    body > div > div,
-                    body > div > div > div.login-form {
-                    height: 100%;
-                    }
-                `}
-                </style>
                 <Grid
                     textAlign='center'
                     style={{ height: '100%' }}
-                    verticalAlign='middle'
-                >
+                    verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as='h2' color='teal' textAlign='center'>
                             {' '}Log-in to your account
                         </Header>
-                        <Form size='large' autoComplete="on">
+                        <Form size='large' autoComplete="on" onSubmit={ this._submitHandler.bind(this) }>
                             <Segment stacked>
                                 <Form.Input
                                     fluid
@@ -48,8 +39,7 @@ class Auth extends Component {
                                     iconPosition='left'
                                     placeholder='E-mail address'
                                     autoComplete='username'
-                                    onChange = {(event,newValue) => this.setState({email:newValue.value})}
-                                />
+                                    onChange = {(event,newValue) => this.setState({email:newValue.value})} />
                                 <Form.Input
                                     fluid
                                     icon='lock'
@@ -57,12 +47,13 @@ class Auth extends Component {
                                     placeholder='Password'
                                     type='password'
                                     autoComplete="current-password"
-                                    onChange = {(event,newValue) => this.setState({password:newValue.value})}
-                                />
-
-                                <Button color='teal' fluid size='large' onClick={event => this._handleClick(event)}>
-                                    Login
-                                </Button>
+                                    onChange = {(event,newValue) => this.setState({password:newValue.value})} />
+                                <Button
+                                  fluid
+                                  content='Login'
+                                  type='submit'
+                                  color='teal'
+                                  size='large' />
                             </Segment>
                         </Form>
                         {/*<Message>

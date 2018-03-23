@@ -1,5 +1,10 @@
-.slide_bar {
+@header_height: 73px;
+.ui.segment.pushable.frame_pushable {
+  margin: 0;
   height: 100%;
+  height: -moz-calc(100% - @header_height); /* Firefox */
+  height: -webkit-calc(100% - @header_height); /* Chrome, Safari */
+  height: calc(100% - @header_height); /* IE9+ and future browsers */
   .wrapper{
     margin: 1rem;
     height: 100%;

@@ -63,8 +63,8 @@ class Header extends Component {
         name: 'portfolio'
       },
       {
-        path: '/locations',
-        name: 'locations'
+        path: '/sns',
+        name: 'SNS'
       }
     ];
     return menuItems.map(data => this._createItemRight(data));
