@@ -3,13 +3,13 @@ import axios from 'axios';
 
 const postActions = dispatch => ({
     getPosts: async () => {
-        const res = await axios.get('/api/posts');
+        const res = await axios.get('/api/post');
         dispatch({type: GET_POSTS, payload: res.data});
     },
     submitPost: async (data) => {
         let res;
         try {
-            res = await axios.post('/api/posts/new', data);
+            res = await axios.post('/api/post/new', data);
         } catch (err) {
             alert(err);
         }

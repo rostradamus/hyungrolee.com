@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./routes/posts')(app);
+require('./routes/post')(app);
 require('./routes/auth')(app);
 
 app.listen(5000);

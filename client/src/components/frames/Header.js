@@ -48,7 +48,7 @@ class Header extends Component {
       case false:
         return <Menu.Item className='menu_right_item' position='right' key='login' name='login' href='/login' />;
       default:
-        return <Menu.Item className='menu_right_item' position='right' key='logout' name='logout' href='/api/users/logout' />;
+        return <Menu.Item className='menu_right_item' position='right' key='logout' name='logout' href='/api/user/logout' />;
     }
   }
 

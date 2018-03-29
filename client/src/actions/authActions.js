@@ -6,7 +6,7 @@ const authActions = dispatch => ({
         let res;
         dispatch(request(res));
         try {
-            res = await axios.get('/api/users/current_user');
+            res = await axios.get('/api/user/current_user');
             dispatch(success(res.data));
         }
         catch (err) {
@@ -20,7 +20,7 @@ const authActions = dispatch => ({
         dispatch(request({ email }));
         let res;
         try {
-            res = await axios.post('/api/users/authenticate', { email, password });
+            res = await axios.post('/api/user/authenticate', { email, password });
             dispatch(success(res.data));
         }
         catch (err) {

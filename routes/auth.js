@@ -32,7 +32,7 @@ passport.use(new LocalStrategy({
 module.exports = app => {
 
     app.post(
-        '/api/users/authenticate',
+        '/api/user/authenticate',
         passport.authenticate('local'),
         (req, res) => {
         // If this function gets called, authentication was successful.
@@ -41,14 +41,14 @@ module.exports = app => {
             res.send(req.user);
         });
 
-    app.get('/api/users/current_user', (req,res) => {
+    app.get('/api/user/current_user', (req,res) => {
         if (!req.user) {
             res.status(401);
         }
         res.send(req.user);
     });
 
-    app.get('/api/users/logout', (req, res) => {
+    app.get('/api/user/logout', (req, res) => {
         req.logout();
         res.redirect('/');
     });
