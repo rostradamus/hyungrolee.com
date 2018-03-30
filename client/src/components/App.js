@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Auth, PostList, PostForm, PostDetail } from './contents';
-import { Header, SlideBar } from './frames';
+import { Header, SlideBar, Landing } from './frames';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
@@ -42,6 +42,8 @@ class App extends Component {
 
   _renderHome() {
     const routes = [
+        <Route key='landing' exact path="/" component={Landing} />,
+        <Route key='about' exact path="/about" component={Landing} />,
         <Route key='post_list' path="/post/list" component={PostList} />,
         <Route key='post_form' path="/post/form" component={PostForm} />,
         <Route key='post_detail' path="/post/detail/:postId" component={PostDetail} />
