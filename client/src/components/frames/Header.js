@@ -76,7 +76,11 @@ class Header extends Component {
     return (
       <Segment inverted className='frame_header'>
         <Menu inverted pointing secondary>
-          <Menu.Item header position='left' onClick={ this._handleClickSlideBar.bind(this) } >ro.Stradamus</Menu.Item>
+          <Menu.Item 
+            header
+            position='left'
+            content="ro.Stradamus"
+            onClick={ this._handleClickSlideBar.bind(this) } />
           <Menu.Item 
             position='right'
             as={ Link }

@@ -12,7 +12,6 @@ module.exports = app => {
   });
 
   app.get('/api/post/:id', (req, res) => {
-    console.log(req.params.id);
     Post.find({_id: req.params.id}, (err, post) => {
       if (err) res.send(err);
       res.send(post);
@@ -23,6 +22,7 @@ module.exports = app => {
       const post = new Post(req.body);
       post.save((err, target) => {
           if (err) res.send(err);
+          res.status(200);
           res.send(target);
       });
   });

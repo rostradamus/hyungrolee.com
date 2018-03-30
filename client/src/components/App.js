@@ -32,7 +32,9 @@ class App extends Component {
       <Router>
         <div className='App'>
           <Header toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
-          <SlideBar pusher={ segment } visible={ this.state.slideBarVisible } />
+          <SlideBar 
+            pusher={ <Container className="appBody"> {segment} </Container> } 
+            visible={ this.state.slideBarVisible } />
         </div>
       </Router>
       );
@@ -49,7 +51,9 @@ class App extends Component {
 
   _renderNeedAuth() {
     return (
-        <Auth />
+        <Container>
+          <Auth />
+        </Container>
       );
   }
 }

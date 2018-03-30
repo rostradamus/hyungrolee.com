@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Checkbox, Form, TextArea } from 'semantic-ui-react';
 import { postActions } from 'Actions';
+import './PostForm.less';
 
 class PostForm extends Component {
 
@@ -30,7 +31,7 @@ class PostForm extends Component {
 
   render() {
     return (
-      <Form onSubmit={ this._submitHandler.bind(this) }>
+      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) }>
       <Form.Field>
         <label>Title</label>
         <input 
@@ -41,6 +42,7 @@ class PostForm extends Component {
       <Form.Field>
         <label>Contents</label>
         <TextArea 
+          className='contentTextArea'
           name='content' 
           placeholder='Please enter your input' 
           onChange = { this._onChangeInputHandler.bind(this) } />

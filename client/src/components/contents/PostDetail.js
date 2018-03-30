@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader, Segment, Header, Container, Divider } from 'semantic-ui-react';
+import './PostDetail.less';
 
 class PostDetail extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true
     }
   }
 
   componentWillMount() {
     this._getPostWithID(this.props.match.params.postId)
-    .then(res => this.setState({ post: res.data[0] }));
+      .then(res => this.setState({ post: res.data[0], isLoading: false }));
   }
 
   async _getPostWithID(id) {
@@ -20,22 +22,26 @@ class PostDetail extends Component {
     return res;
   }
 
-  render() {
-    const post = this.state.post;
-    if (!post) 
-      return (
-        <Dimmer active>
-          <Loader />
-        </Dimmer>
-      );
+  renderContent(post) {
+    if(!post) return null;
+    const time = new Date(post.time).toLocaleString(navigator.language);
     return (
       <div>
-        { post._id }
-        { post.title }
-        { post.content }
-        { post.time }
-        { post.author }
+        <Header content={ post.title }/>
+        <Header.Subheader content={ time } />
+        <Header.Subheader content={ "by " + post.author } />
+        <Divider />
+        <Container text className="postDetailContent" content={ post.content } />
       </div>
+    )
+  }
+
+  render() {
+    const post = this.state.post;
+    return (
+      <Segment className="postDetailSegment" loading={ this.state.isLoading }>
+        { this.renderContent(post) }
+      </Segment>
     );
   }
 }

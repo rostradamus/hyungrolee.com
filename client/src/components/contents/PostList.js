@@ -21,7 +21,7 @@ class PostList extends Component {
           to='/post/form' 
           content='+ Create' 
           floated='right' />
-        <Card.Group itemsPerRow='4' >
+        <Card.Group itemsPerRow='3' >
           { posts }
         </Card.Group>
       </div>
