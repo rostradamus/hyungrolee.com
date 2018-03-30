@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Checkbox, Form, TextArea } from 'semantic-ui-react';
+import { Button, Form, TextArea } from 'semantic-ui-react';
 import { postActions } from 'Actions';
 import './PostForm.less';
 

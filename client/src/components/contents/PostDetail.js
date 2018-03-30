@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Dimmer, Loader, Segment, Header, Container, Divider } from 'semantic-ui-react';
+import { Segment, Header, Container, Divider } from 'semantic-ui-react';
 import './PostDetail.less';
 
 class PostDetail extends Component {

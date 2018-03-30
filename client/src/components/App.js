@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Auth, PostList, PostForm, PostDetail } from './contents';
 import { Header, SlideBar, Landing } from './frames';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
 import './App.less';

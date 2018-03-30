@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { postActions } from 'Actions';
 import PostCard from './PostCard';
-import { Container, Button, Card } from 'semantic-ui-react';
+import { Button, Card } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 class PostList extends Component {

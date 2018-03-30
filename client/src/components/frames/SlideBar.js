@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Sidebar, Segment, Menu, Icon, Dimmer, Loader } from 'semantic-ui-react';
+import { Sidebar, Segment, Menu, Icon } from 'semantic-ui-react';
 import './SlideBar.less';
 
 class SlideBar extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

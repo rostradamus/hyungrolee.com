@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Sidebar, Segment, Menu, Icon, Dimmer, Loader } from 'semantic-ui-react';
 import Background from './images/background.svg';
 import './Landing.less';
 
@@ -10,9 +9,6 @@ const sectionStyle = {
 };
 
 class Landing extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
