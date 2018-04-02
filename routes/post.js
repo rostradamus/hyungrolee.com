@@ -7,6 +7,7 @@ module.exports = app => {
     let order = { time: -1 };
     Post.find({}).sort(order).exec((err, posts) => {
         if (err) res.send(err);
+        res.status(200);
         res.send(posts);
       });
   });
@@ -14,6 +15,7 @@ module.exports = app => {
   app.get('/api/post/:id', (req, res) => {
     Post.find({_id: req.params.id}, (err, post) => {
       if (err) res.send(err);
+      res.status(200);
       res.send(post);
     });
   });
