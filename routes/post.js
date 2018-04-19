@@ -1,10 +1,19 @@
 const mongoose = require('mongoose');
 const Post = mongoose.model('Post');
 
+const _hasLoggedIn = (req, res, next) => {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
+
 module.exports = app => {
 
-  app.get('/api/post', (req, res) => {
-    let order = { time: -1 };
+  app.get('/api/post', _hasLoggedIn, (req, res) => {
+    const order = { time: -1 };
+
     Post.find({}).sort(order).exec((err, posts) => {
         if (err) res.send(err);
         res.status(200);
@@ -12,7 +21,7 @@ module.exports = app => {
       });
   });
 
-  app.get('/api/post/:id', (req, res) => {
+  app.get('/api/post/:id', _hasLoggedIn, (req, res) => {
     Post.find({_id: req.params.id}, (err, post) => {
       if (err) res.send(err);
       res.status(200);
@@ -20,7 +29,7 @@ module.exports = app => {
     });
   });
 
-  app.post('/api/post/new', (req, res) => {
+  app.post('/api/post/new', _hasLoggedIn, (req, res) => {
       const post = new Post(req.body);
       post.save((err, target) => {
           if (err) res.send(err);
