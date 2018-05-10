@@ -11,9 +11,8 @@ require('./models/Post');
 require('./models/User');
 
 // DATABASE PROXY to check go on mlab.com
-mongoose.connect(config.mongoURI, {
-  useMongoClient: true
-});
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongoURI);
 
 const app = express();
 app.use(morgan('dev'));

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Background from './images/background.svg';
 import './Landing.less';
 
 const sectionStyle = {
   width: "100%",
-  height: "400px",
-  backgroundImage: `url(${Background})`
+  height: "400px"
 };
 
 class Landing extends Component {
