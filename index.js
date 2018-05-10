@@ -1,4 +1,4 @@
-const config = require('./config');
+const CONFIG = require('./config');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,15 +11,19 @@ require('./models/Post');
 require('./models/User');
 
 // DATABASE PROXY to check go on mlab.com
+const options = {
+  user: CONFIG.mongoUser.user,
+  pass: CONFIG.mongoUser.password
+};
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongoURI);
+mongoose.connect(CONFIG.mongoURI, options);
 
 const app = express();
 app.use(morgan('dev'));
 app.use(
   cookieSession({
     maxAge: 1 * 1 * 60 * 60 * 1000,
-    keys: [config.cookieKey]
+    keys: [CONFIG.cookieKey]
   })
 );
 app.use(bodyParser.json());
