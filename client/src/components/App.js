@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Auth, PostList, PostForm, PostDetail } from './contents';
-import { Header, SlideBar, Landing } from './frames';
+import { Header, SlideBar } from './frames';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
