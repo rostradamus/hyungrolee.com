@@ -12,11 +12,11 @@ require('./models/User');
 
 // DATABASE PROXY to check go on mlab.com
 const options = {
-  user: CONFIG.mongoUser.user,
-  pass: CONFIG.mongoUser.password
+  user: process.env.PBLOG_DB_USERNAME,
+  pass: process.env.PBLOG_DB_PASSWORD
 };
 mongoose.Promise = global.Promise;
-mongoose.connect(CONFIG.mongoURI, options);
+mongoose.connect(process.env.PBLOG_DB_URI, options);
 
 const app = express();
 app.use(morgan('dev'));
