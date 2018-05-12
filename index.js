@@ -17,6 +17,7 @@ const options = {
 };
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.PBLOG_DB_URI, options);
+console.log("test jenkins job");
 
 const app = express();
 app.use(morgan('dev'));
