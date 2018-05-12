@@ -29,7 +29,7 @@ class Auth extends Component {
                     verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            {' '}Log-in to your account :):):)
+                            {' '}Log-in to your account :):)
                         </Header>
                         <Form size='large' autoComplete="on" onSubmit={ this._submitHandler.bind(this) }>
                             <Segment stacked>
