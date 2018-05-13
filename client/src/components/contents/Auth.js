@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
 import { connect } from 'react-redux';
 import './Auth.less';
