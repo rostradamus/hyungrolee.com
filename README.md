@@ -1,6 +1,6 @@
 ## ro.stradamus Personal Website
 
-Hyung Ro Lee's Personal website repository
+Hyung Ro Lee's Personal website repository </br>
 [Go To Website](https://hyungrolee.com)
 
 ### Environment
@@ -14,8 +14,8 @@ Hyung Ro Lee's Personal website repository
 
 Release update for production build is as following:
 
-```markdown
 **1.0.0** _2018.05.22_
+```markdown
 1. Https access is enabled
 2. Basic authentication(Local) -> auth through third party account will be implemented
 3. Basic board post update is enabled
@@ -23,5 +23,5 @@ Release update for production build is as following:
 
 ### Support or Contact
 
-Having trouble with Pages? 
+Having trouble with Pages? </br>
 [Contact me through email](rolee0429@gmail.com).
