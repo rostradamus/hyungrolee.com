@@ -14,7 +14,7 @@ Hyung Ro Lee's Personal website repository </br>
 
 Release update for production build is as following:
 
-**1.0.0** _2018.05.22_
+**1.0.0** _(2018.05.22)_
 ```markdown
 1. Https access is enabled
 2. Basic authentication(Local) -> auth through third party account will be implemented
