@@ -24,4 +24,4 @@ Release update for production build is as following:
 ### Support or Contact
 
 Having trouble with Pages? </br>
-[Contact me through email]<rolee0429@gmail.com>.
+Contact me through email: <rolee0429@gmail.com>
