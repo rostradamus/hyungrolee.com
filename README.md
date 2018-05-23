@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+## ro.stradamus Personal Website
 
-You can use the [editor on GitHub](https://github.com/Rostradamus/pblog/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Hyung Ro Lee's Personal website repository
+[Go To Website](https://hyungrolee.com)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Environment
 
-### Markdown
+- Backend: Node.js + Express.js
+- Frontend: React / React-redux
+- Build automation: Jenkins
+- Server host: Digital Ocean + Ubuntu NodeJS 6.12.3 on 16.04
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Release Version
+
+Release update for production build is as following:
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+**1.0.0** _2018.05.22_
+1. Https access is enabled
+2. Basic authentication(Local) -> auth through third party account will be implemented
+3. Basic board post update is enabled
 ```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Rostradamus/pblog/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Having trouble with Pages? 
+[Contact me through email](rolee0429@gmail.com).
