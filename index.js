@@ -5,10 +5,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const morgan = require('morgan');
-
-// Models
-require('./models/Post');
-require('./models/User');
+const path = require('path');
 
 // DATABASE PROXY to check go on mlab.com
 const options = {
@@ -34,5 +31,13 @@ app.use(express.static(`${__dirname}/client/build`));
 
 require('./routes/post')(app);
 require('./routes/auth')(app);
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
+})
 
 app.listen(5000);

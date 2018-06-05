@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('../models/Post');
 const Post = mongoose.model('Post');
 
 const _hasLoggedIn = (req, res, next) => {
