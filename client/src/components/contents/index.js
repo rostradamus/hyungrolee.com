@@ -10,4 +10,4 @@ export {
   PostForm,
   PostList,
   PostDetail
-}
+};

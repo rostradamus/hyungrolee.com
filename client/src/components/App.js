@@ -12,10 +12,10 @@ class App extends Component {
     super(props);
     this.state = {
       slideBarVisible: false
-    }
+    };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.user)
       this.props.fetchUser();
   }

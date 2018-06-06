@@ -9,10 +9,10 @@ class PostDetail extends Component {
     super(props);
     this.state = {
       isLoading: true
-    }
+    };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this._getPostWithID(this.props.match.params.postId)
       .then(res => this.setState({ post: res.data[0], isLoading: false }));
   }
@@ -33,7 +33,7 @@ class PostDetail extends Component {
         <Divider />
         <Container text className="postDetailContent" content={ post.content } />
       </div>
-    )
+    );
   }
 
   render() {

@@ -13,7 +13,7 @@ class PostForm extends Component {
       author: props.user,
       content: "",
       attachment: ""
-    }
+    };
   }
 
   _submitHandler() {

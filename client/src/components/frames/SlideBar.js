@@ -32,8 +32,8 @@ class SlideBar extends Component {
             { this.props.pusher }
           </Sidebar.Pusher>
         </Sidebar.Pushable>
-    )
+    );
   }
 }
 
-export default SlideBar
+export default SlideBar;

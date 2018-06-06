@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 class PostList extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPosts();
   }
 
@@ -25,7 +25,7 @@ class PostList extends Component {
           { posts }
         </Card.Group>
       </div>
-    )
+    );
   }
 }
 

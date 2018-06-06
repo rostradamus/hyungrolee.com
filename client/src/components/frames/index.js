@@ -6,4 +6,4 @@ export {
   Header,
   SlideBar,
   Landing
-}
+};

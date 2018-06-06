@@ -36,7 +36,7 @@ class Header extends Component {
         key={ name }
         name={ name }
         active={activeItem === name} 
-        onClick={this._handleItemClick.bind(this)} />
+        onClick={this._handleItemClick.bind(this)} />;
       
     return result;
   }
