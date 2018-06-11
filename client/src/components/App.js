@@ -45,7 +45,8 @@ class App extends Component {
         // <Route key='landing' exact path="/" component={Landing} />,
         // <Route key='about' exact path="/about" component={Landing} />,
         <Route key='post_list' path="/post/list" component={PostList} />,
-        <Route key='post_form' path="/post/form" component={PostForm} />,
+        <Route key='post_form' exact path="/post/new/" component={PostForm} />,
+        <Route key='post_edit' path="/post/edit/:postId" component={PostForm} />,
         <Route key='post_detail' path="/post/detail/:postId" component={PostDetail} />
       ];
     return routes;

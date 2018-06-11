@@ -74,8 +74,8 @@ class Header extends Component {
     const { activeItem } = this.state;
 
     return (
-      <Segment inverted className='frame_header'>
-        <Menu inverted pointing secondary>
+      <Segment className='frame_header'>
+        <Menu pointing secondary>
           <Menu.Item 
             header
             position='left'

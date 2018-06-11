@@ -10,7 +10,6 @@ class PostCard extends Component {
 
         return (
             <Card className="postCard" color='grey'>
-                {/*<Image src='../assets/images/sample_img.png' />*/}
                 <Card.Content>
                     <Card.Header as={ Link } to={'/post/detail/' + _id} content={title} />
                     <Card.Meta content={time} />

@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, TextArea } from 'semantic-ui-react';
 import { postActions } from 'Actions';
+import axios from 'axios';
 import './PostForm.less';
 
 class PostForm extends Component {
 
   constructor(props) {
     super(props);
+    const bIsEditMode = props.match.params.postId ? true : false;
+    if (bIsEditMode) {
+      this._getFormContent(props.match.params.postId);
+    }
     this.state = {
       title: "",
       author: props.user,
       content: "",
-      attachment: ""
+      attachment: "",
+      isLoading: bIsEditMode
     };
   }
 
@@ -28,15 +34,21 @@ class PostForm extends Component {
     });
   }
 
+  async _getFormContent(sPostId) {
+    const { data } = await axios.get('/api/post/' + sPostId);
+    console.log(data);
+    this.setState(Object.assign({...data}, {isLoading: false}));
+  }
 
   render() {
     return (
-      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) }>
+      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) } loading= { this.state.isLoading }>
       <Form.Field>
         <label>Title</label>
         <input 
           name='title' 
-          placeholder='Title' 
+          placeholder='Title'
+          value={ this.state.title }
           onChange = { this._onChangeInputHandler.bind(this) } />
       </Form.Field>
       <Form.Field>
@@ -45,6 +57,7 @@ class PostForm extends Component {
           className='contentTextArea'
           name='content' 
           placeholder='Please enter your input' 
+          value={ this.state.content }
           onChange = { this._onChangeInputHandler.bind(this) } />
       </Form.Field>
       <Button type='submit'>Submit</Button>

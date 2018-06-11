@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Segment, Header, Container, Divider } from 'semantic-ui-react';
+import { Segment, Header, Container, Divider, Button, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import './PostDetail.less';
 
 class PostDetail extends Component {
@@ -8,13 +9,18 @@ class PostDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      bIsAuthor: false
     };
   }
 
   componentDidMount() {
     this._getPostWithID(this.props.match.params.postId)
-      .then(res => this.setState({ post: res.data[0], isLoading: false }));
+      .then(res => this.setState({
+        post: res.data,
+        isLoading: false,
+        bIsAuthor: res.data.bIsAuthor
+      }));
   }
 
   async _getPostWithID(id) {
@@ -27,6 +33,24 @@ class PostDetail extends Component {
     const time = new Date(post.time).toLocaleString(navigator.language);
     return (
       <div>
+        <Button
+            as={ Link } 
+            to={ `/post/edit/${post._id}` }
+            disabled={ !this.state.bIsAuthor }
+            animated='vertical'>
+            <Button.Content hidden>Edit</Button.Content>
+            <Button.Content visible>
+              <Icon name='edit' />
+            </Button.Content>
+        </Button>
+        <Button
+          disabled={ !this.state.bIsAuthor }
+          animated='vertical'>
+          <Button.Content hidden>Delete</Button.Content>
+          <Button.Content visible>
+            <Icon name='trash' />
+          </Button.Content>
+        </Button>
         <Header content={ post.title }/>
         <Header.Subheader content={ time } />
         <Header.Subheader content={ "by " + post.author } />

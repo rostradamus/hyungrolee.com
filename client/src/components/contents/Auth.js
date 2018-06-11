@@ -28,7 +28,7 @@ class Auth extends Component {
                     style={{ height: '100%' }}
                     verticalAlign='middle'>
                     <Grid.Column style={{ maxWidth: 450 }}>
-                        <Header as='h2' color='teal' textAlign='center'>
+                        <Header as='h2' inverted textAlign='center'>
                             {' '}Log-in to your account
                         </Header>
                         <Form size='large' autoComplete="on" onSubmit={ this._submitHandler.bind(this) }>
@@ -52,7 +52,6 @@ class Auth extends Component {
                                   fluid
                                   content='Login'
                                   type='submit'
-                                  color='teal'
                                   size='large' />
                             </Segment>
                         </Form>

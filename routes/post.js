@@ -23,15 +23,17 @@ module.exports = app => {
   });
 
   app.get('/api/post/:id', _hasLoggedIn, (req, res) => {
-    Post.find({_id: req.params.id}, (err, post) => {
+    Post.findById(req.params.id, (err, post) => {
       if (err) res.send(err);
+      const oBody = Object.assign({...post._doc}, {bIsAuthor: post.authorId === `${req.user._id}`});
+      console.log(oBody);
       res.status(200);
-      res.send(post);
+      res.send(oBody);
     });
   });
 
   app.post('/api/post/new', _hasLoggedIn, (req, res) => {
-      const post = new Post(req.body);
+      const post = new Post(Object.assign({...req.body}, { authorId: req.user._id }));
       post.save((err, target) => {
           if (err) res.send(err);
           res.status(200);
