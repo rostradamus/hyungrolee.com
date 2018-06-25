@@ -25,7 +25,7 @@ module.exports = app => {
   app.get('/api/post/:id', _hasLoggedIn, (req, res) => {
     Post.findById(req.params.id, (err, post) => {
       if (err) res.send(err);
-      const oBody = Object.assign({...post._doc}, {bIsAuthor: post.authorId === `${req.user._id}`});
+      const oBody = Object.assign({}, post._doc, {bIsAuthor: post.authorId === `${req.user._id}`});
       console.log(oBody);
       res.status(200);
       res.send(oBody);
@@ -33,7 +33,7 @@ module.exports = app => {
   });
 
   app.post('/api/post/new', _hasLoggedIn, (req, res) => {
-      const post = new Post(Object.assign({...req.body}, { authorId: req.user._id }));
+      const post = new Post(Object.assign({}, req.body, { authorId: req.user._id }));
       post.save((err, target) => {
           if (err) res.send(err);
           res.status(200);
