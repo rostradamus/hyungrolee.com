@@ -26,7 +26,6 @@ module.exports = app => {
     Post.findById(req.params.id, (err, post) => {
       if (err) res.send(err);
       const oBody = Object.assign({}, post._doc, {bIsAuthor: post.authorId === `${req.user._id}`});
-      console.log(oBody);
       res.status(200);
       res.send(oBody);
     });
@@ -39,5 +38,26 @@ module.exports = app => {
           res.status(200);
           res.send(target);
       });
+  });
+
+  app.post('/api/post/edit', _hasLoggedIn, (req, res) => {
+    const oBody = req.body;
+    Post.findById(oBody._id, (err, post) => {
+      if (err) res.send(err);
+      post.set(oBody);
+      post.save((err, target) => {
+        if (err) res.send(err);
+        res.status(200);
+        res.send(target);
+      });
+    });
+  });
+
+  app.delete("/api/post/delete", _hasLoggedIn, (req, res) => {
+    Post.deleteOne({ _id: req.query.id }, (err, oDelRes) => {
+      if (err) res.send(err);
+      res.status(200);
+      res.send(oDelRes);
+    });
   });
 };

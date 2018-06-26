@@ -28,6 +28,20 @@ class PostDetail extends Component {
     return res;
   }
 
+  async _deletePost(id) {
+    let res;
+    try {
+      res = await axios.delete("/api/post/delete", {
+        params: { id }
+      });
+      if (res.status === 200) {
+        window.location = "/post/list/";
+      }
+    } catch (err) {
+      alert(err);
+    }
+  }
+
   renderContent(post) {
     if(!post) return null;
     const time = new Date(post.time).toLocaleString(navigator.language);
@@ -45,6 +59,7 @@ class PostDetail extends Component {
         </Button>
         <Button
           disabled={ !this.state.bIsAuthor }
+          onClick = { this._deletePost.bind(this, post._id) }
           animated='vertical'>
           <Button.Content hidden>Delete</Button.Content>
           <Button.Content visible>

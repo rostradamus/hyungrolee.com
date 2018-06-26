@@ -23,8 +23,9 @@ class PostForm extends Component {
   }
 
   _submitHandler() {
-    const data = this.state;
-    this.props.submitPost(data);
+    const data = this.state,
+      postId = this.props.match.params.postId;
+    postId ? this.props.editPost(data) : this.props.submitPost(data);
   }
 
   _onChangeInputHandler(e) {
