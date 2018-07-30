@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import authActions from 'Actions/authActions';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Auth.less';
 
@@ -17,7 +18,7 @@ class Auth extends Component {
 
     _submitHandler() {
         const {email, password} = this.state;
-        this.props.onClickHandler(email, password);
+        this.props.onLoginSubmit(email, password);
     }
 
     render() {
@@ -56,7 +57,7 @@ class Auth extends Component {
                             </Segment>
                         </Form>
                         {<Message>
-                            New to us? <a href='#'>Sign Up</a>
+                            New to us? <Link to='/register'>Sign Up</Link>
                         </Message>}
                     </Grid.Column>
                 </Grid>

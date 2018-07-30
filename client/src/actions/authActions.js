@@ -13,7 +13,8 @@ const authActions = dispatch => ({
             dispatch(this._failure(err));
         }
     },
-    onClickHandler: async function(email, password) {
+
+    onLoginSubmit: async function(email, password) {
         dispatch(this._request({ email }));
         let res;
         try {
@@ -24,6 +25,11 @@ const authActions = dispatch => ({
             dispatch(this._failure(err));
         }
     },
+
+    onRegisterSubmit: async function(oBody) {
+      console.log(oBody);
+    },
+    
     _request: user => ({ type: userConstants.LOGIN_REQUEST, payload:user }),
     _success: user => ({ type: userConstants.LOGIN_SUCCESS, payload:user }),
     _failure: error => ({ type: userConstants.LOGIN_FAILURE, payload:error })

@@ -28,24 +28,27 @@ passport.use(new LocalStrategy({
 // TODO: Password Encryption is required (See bcrypt)
 module.exports = app => {
 
-  app.post('/api/user/authenticate',
-    passport.authenticate('local'),
-    (req, res) => {
-        // If this function gets called, authentication was successful.
-        // `req.user` contains the authenticated user.
-        // res.redirect('/');
-        res.send(req.user);
-      });
+  app.post('/api/user/authenticate', passport.authenticate('local'), (req, res) => {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    // res.redirect('/');
+    res.send(req.user);
+  });
 
-  app.get('/api/user/current_user', (req,res) => {
+  app.post('/api/user/register', (req, res) => {
+    // TODO
+  });
+
+  app.get('/api/user/current_user', (req ,res) => {
     if (!req.user) {
       res.status(401);
+      res.redirect('/login');
     }
     res.send(req.user);
   });
 
   app.get('/api/user/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login');
   });
 };
