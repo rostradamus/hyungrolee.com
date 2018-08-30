@@ -9,7 +9,7 @@ class Register extends Component {
         this.state={
             firstName: "",
             lastName: "",
-            nickName: "",
+            userName: "",
             email: "",
             password: "",
             cPassword: ""
@@ -17,14 +17,40 @@ class Register extends Component {
     }
 
     _submitHandler() {
-      if (this._validateForm()) {
-        this.props.onRegisterSubmit(this.state);  
+      try {
+        this._validateForm();
+        console.log(this.state);
+        this.props.onRegisterSubmit(this.state);
+      } catch(e) {
+        alert(e);
       }
     }
 
     _validateForm() {
-      // TODO
-      return true;
+      // TODO: Use different UI for error message;
+      const { firstName, lastName, email, password, cPassword} = this.state;
+      if (firstName.trim() === "") throw "Please enter first name";
+      if (lastName.trim() === "") throw "Please enter last name";
+      if (!this._validateEmail(email)) throw "Please enter valid email address";
+      if (!this._validatePassword(password)) 
+        throw "Please enter valid password \n"
+          + "Passwords must be: \n"
+          + "* - At least 8 characters long, max length anything \n"
+          + "* - Include at least 1 lowercase letter \n"
+          + "* - 1 capital letter\n"
+          + "* - 1 number\n"
+          + "* - 1 special character => !@#$%^&*";
+      if (password !== cPassword) throw "Password does not match the confirm password";
+    }
+
+    _validateEmail(email) {
+      const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return regex.test(String(email).toLowerCase());
+    }
+
+    _validatePassword(password) {
+      const regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
+      return regex.test(password);
     }
 
     render() {
@@ -57,7 +83,7 @@ class Register extends Component {
                                     iconPosition='left'
                                     placeholder='Nickname'
                                     autoComplete='nickname'
-                                    onChange = {(event,newValue) => this.setState({nickName:newValue.value})} />
+                                    onChange = {(event,newValue) => this.setState({userName:newValue.value})} />
                                 <Form.Input
                                     fluid
                                     icon='user'
@@ -95,8 +121,6 @@ class Register extends Component {
     }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-};
+const mapStateToProps = state => (state);
 
 export default connect(mapStateToProps, authActions)(Register);

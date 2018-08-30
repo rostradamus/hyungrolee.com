@@ -1,38 +1,51 @@
 import { userConstants } from './actionTypes';
 import axios from 'axios';
 
+const loginAction = {
+  _request: user => ({ type: userConstants.LOGIN_REQUEST, payload:user }),
+  _success: user => ({ type: userConstants.LOGIN_SUCCESS, payload:user }),
+  _failure: error => ({ type: userConstants.LOGIN_FAILURE, payload:error })
+};
+const registerAction = {
+  _request: user => ({ type: userConstants.REGISTER_REQUEST, payload:user }),
+  _success: user => ({ type: userConstants.REGISTER_SUCCESS, payload:user }),
+  _failure: error => ({ type: userConstants.REGISTER_FAILURE, payload:error })
+};
+
 const authActions = dispatch => ({
     fetchUser: async function() {
         let res;
-        dispatch(this._request(res));
+        dispatch(loginAction._request(res));
         try {
             res = await axios.get('/api/user/current_user');
-            dispatch(this._success(res.data));
+            dispatch(loginAction._success(res.data));
         }
         catch (err) {
-            dispatch(this._failure(err));
+            dispatch(loginAction._failure(err));
         }
     },
 
     onLoginSubmit: async function(email, password) {
-        dispatch(this._request({ email }));
+        dispatch(loginAction._request({ email }));
         let res;
         try {
             res = await axios.post('/api/user/authenticate', { email, password });
-            dispatch(this._success(res.data));
-        }
-        catch (err) {
-            dispatch(this._failure(err));
+            dispatch(loginAction._success(res.data));
+        } catch (err) {
+            dispatch(loginAction._failure(err));
         }
     },
 
     onRegisterSubmit: async function(oBody) {
-      console.log(oBody);
-    },
-    
-    _request: user => ({ type: userConstants.LOGIN_REQUEST, payload:user }),
-    _success: user => ({ type: userConstants.LOGIN_SUCCESS, payload:user }),
-    _failure: error => ({ type: userConstants.LOGIN_FAILURE, payload:error })
+      let res;
+      dispatch(registerAction._request(res));
+      try {
+        res = await axios.post("/api/user/register", oBody);
+        dispatch(registerAction._success(res.data));
+      } catch (err) {
+        dispatch(registerAction._failure(err));
+      }
+    }
 });
 
 export default authActions;

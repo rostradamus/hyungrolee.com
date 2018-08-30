@@ -11,6 +11,15 @@ export default (state = null, action) => {
     case userConstants.LOGIN_FAILURE: {
         return action.payload || null;
     }
+    case userConstants.REGISTER_REQUEST: {
+        return action.payload || null;
+    }
+    case userConstants.REGISTER_SUCCESS: {
+        return action.payload || null;
+    }
+    case userConstants.REGISTER_FAILURE: {
+        return action.payload || null;
+    }
     default:
         return state;
     }

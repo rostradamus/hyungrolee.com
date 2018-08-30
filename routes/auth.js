@@ -6,7 +6,7 @@ const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => done(null, user._id));
 passport.deserializeUser((id, done) => User.findById(id)
-  .then(user => done(null, { _id: user._id, username: user.username })));
+  .then(user => done(null, { _id: user._id, userName: user.userName })));
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -19,8 +19,8 @@ passport.use(new LocalStrategy({
         return done(null, false, { message: 'Incorrect email.' });
       }
       if (!user.verifyPassword(password)) { return done(null, false); }
-      const { _id, username } = user;
-      return done(null, { _id, username });
+      const { _id, userName } = user;
+      return done(null, { _id, userName });
     });
   })
 );
@@ -36,7 +36,21 @@ module.exports = app => {
   });
 
   app.post('/api/user/register', (req, res) => {
-    // TODO
+    const oUser = new User(req.body);
+    oUser.save((err, target) => {
+          if (err) {
+            res.status(401);
+            return res.send(err);
+          }
+          req.login(oUser, err => {
+            if (err) {
+              res.status(401);
+              return res.send(err);
+            }
+            res.status(200);
+            res.send(target);
+          });
+      });
   });
 
   app.get('/api/user/current_user', (req ,res) => {

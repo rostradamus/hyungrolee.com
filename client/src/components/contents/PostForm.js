@@ -68,7 +68,7 @@ class PostForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.username
+  user: state.auth.userName
 });
 
 export default connect(mapStateToProps, postActions)(PostForm);
