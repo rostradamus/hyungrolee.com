@@ -1,6 +1,7 @@
 module.exports = {
     "env": {
         "browser": true,
+        "node": true,
         "es6": true
     },
     "extends": [
@@ -8,9 +9,8 @@ module.exports = {
         "plugin:react/recommended"
     ],
     "parserOptions": {
-        "ecmaVersion": 8,
+        "ecmaVersion": 9,
         "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
             "jsx": true
         },
         "sourceType": "module"
@@ -23,7 +23,7 @@ module.exports = {
         "react/prop-types": 0,
         "indent": [
             "warn",
-            "tab"
+            2
         ],
         "linebreak-style": [
             "warn",

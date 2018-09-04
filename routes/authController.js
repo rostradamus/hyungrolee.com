@@ -40,12 +40,14 @@ module.exports = app => {
     oUser.save((err, target) => {
           if (err) {
             res.status(401);
-            return res.send(err);
+            errmsg = "You have entered an email that already exists."
+            return res.send({ errmsg });
           }
           req.login(oUser, err => {
             if (err) {
-              res.status(401);
-              return res.send(err);
+              res.status(500);
+              errmsg = "Oh oh, something went wrong. Please try to login again."
+              return res.send({ errmsg });
             }
             res.status(200);
             res.send(target);

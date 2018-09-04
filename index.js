@@ -23,14 +23,20 @@ app.use(
     keys: [CONFIG.cookieKey]
   })
 );
+
+require('./models/User');
+require('./models/Comment');
+require('./models/Post');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(`${__dirname}/client/build`));
 
-require('./routes/post')(app);
-require('./routes/auth')(app);
+require('./routes/authController')(app);
+require('./routes/commentController')(app);
+require('./routes/postController')(app);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
