@@ -7,7 +7,7 @@ Hyung Ro Lee's Personal website repository </br>
 
 - Backend: Node.js + Express.js
 - Frontend: React / React-redux
-- Build automation: Jenkins
+- Build automation: Jenkins (Admin only access)
 - Server host: Digital Ocean + Ubuntu NodeJS 6.12.3 on 16.04
 
 ### Release Version
