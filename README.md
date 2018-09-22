@@ -14,6 +14,11 @@ Hyung Ro Lee's Personal website repository </br>
 
 Release update for production build is as following:
 
+**1.0.1**
+``` markdown
+1. Release Coming soon
+```
+
 **1.0.0** _(2018.05.22)_
 ```markdown
 1. Https access is enabled
