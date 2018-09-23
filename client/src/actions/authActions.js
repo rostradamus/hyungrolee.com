@@ -43,7 +43,8 @@ const authActions = dispatch => ({
       dispatch(registerAction._success(res.data));
     } catch (err) {
       dispatch(registerAction._failure(err));
-      throw err.response.data;
+      // TODO: shouldn't use err.response.data, instead should use e.message
+      throw new Error(err.response.data.errmsg);
     }
   }
 });
