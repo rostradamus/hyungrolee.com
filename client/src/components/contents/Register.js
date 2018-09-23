@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
+import { Button, Form, Grid, Header, Segment, Modal, Icon } from "semantic-ui-react";
 import authActions from "Actions/authActions";
 import { connect } from "react-redux";
 
@@ -13,7 +13,11 @@ class Register extends Component {
       userName: "",
       email: "",
       password: "",
-      cPassword: ""
+      cPassword: "",
+      modalState: {
+        isModalOpen: false,
+        content: ""
+      }
     };
   }
 
@@ -22,25 +26,25 @@ class Register extends Component {
       this._validateForm();
       await this.props.onRegisterSubmit(this.state);
     } catch(e) {
-      // alert(e.errmsg);
+      this.setState({modalState: {isModalOpen: true, content: e.message}});
     }
   }
 
   _validateForm() {
     // TODO: Use different UI for error message;
     const { firstName, lastName, email, password, cPassword} = this.state;
-    if (firstName.trim() === "") throw "Please enter first name";
-    if (lastName.trim() === "") throw "Please enter last name";
-    if (!this._validateEmail(email)) throw "Please enter valid email address";
+    if (firstName.trim() === "") throw new Error("Please enter first name");
+    if (lastName.trim() === "") throw new Error("Please enter last name");
+    if (!this._validateEmail(email)) throw new Error("Please enter valid email address");
     if (!this._validatePassword(password)) 
-      throw "Please enter valid password \n"
+      throw new Error("Please enter valid password \n"
         + "Passwords must be: \n"
         + "* - At least 8 characters long, max length anything \n"
         + "* - Include at least 1 lowercase letter \n"
         + "* - 1 capital letter\n"
         + "* - 1 number\n"
-        + "* - 1 special character => !@#$%^&*";
-    if (password !== cPassword) throw "Password does not match the confirm password";
+        + "* - 1 special character => !@#$%^&*");
+    if (password !== cPassword) throw new Error("Password does not match the confirm password");
   }
 
   _validateEmail(email) {
@@ -53,7 +57,12 @@ class Register extends Component {
     return regex.test(password);
   }
 
+  _closeModal() {
+    this.setState({modalState: {isModalOpen: false}});
+  }
+
   render() {
+    const { modalState } = this.state;
     return (
       <div className="register-form">
         <Grid
@@ -112,6 +121,20 @@ class Register extends Component {
                   content="Register"
                   type="submit"
                   size="large" />
+                <Modal
+                  size="mini"
+                  open={ modalState.isModalOpen }
+                  onClose={ this._closeModal.bind(this) }
+                  basic>
+                  <Modal.Content
+                    as="p"
+                    content={ modalState.content }/>
+                  <Modal.Actions>
+                    <Button color='green' onClick={ this._closeModal.bind(this) } inverted>
+                      <Icon name='checkmark' /> Got it
+                    </Button>
+                  </Modal.Actions>
+                </Modal>
               </Segment>
             </Form>
           </Grid.Column>
