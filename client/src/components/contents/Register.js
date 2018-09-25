@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Form, Grid, Header, Segment, Modal, Icon } from "semantic-ui-react";
+import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 import authActions from "Actions/authActions";
+import AuthModal from './AuthModal';
 import { connect } from "react-redux";
 
 class Register extends Component {
@@ -62,7 +63,6 @@ class Register extends Component {
   }
 
   render() {
-    const { modalState } = this.state;
     return (
       <div className="register-form">
         <Grid
@@ -121,20 +121,9 @@ class Register extends Component {
                   content="Register"
                   type="submit"
                   size="large" />
-                <Modal
-                  size="mini"
-                  open={ modalState.isModalOpen }
-                  onClose={ this._closeModal.bind(this) }
-                  basic>
-                  <Modal.Content
-                    as="p"
-                    content={ modalState.content }/>
-                  <Modal.Actions>
-                    <Button color='green' onClick={ this._closeModal.bind(this) } inverted>
-                      <Icon name='checkmark' /> Got it
-                    </Button>
-                  </Modal.Actions>
-                </Modal>
+                <AuthModal
+                  modalProps={ this.state.modalState }
+                  close={() => this.setState({modalState: { isModalOpen: false, content: ""}})} />
               </Segment>
             </Form>
           </Grid.Column>

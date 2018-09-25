@@ -32,6 +32,8 @@ const authActions = dispatch => ({
       dispatch(loginAction._success(res.data));
     } catch (err) {
       dispatch(loginAction._failure(err));
+      // TODO: shouldn't be hardcoded here in the front-end
+      throw new Error("Please check your email address or password");
     }
   },
 
