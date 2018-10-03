@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
-import authActions from "Actions/authActions";
+import { AuthActions, ModalActions } from "Actions";
 import AuthModal from './AuthModal';
 import { connect } from "react-redux";
 
@@ -14,20 +14,16 @@ class Register extends Component {
       userName: "",
       email: "",
       password: "",
-      cPassword: "",
-      modalState: {
-        isModalOpen: false,
-        content: ""
-      }
+      cPassword: ""
     };
   }
 
   async _submitHandler() {
     try {
       this._validateForm();
-      await this.props.onRegisterSubmit(this.state);
+      await this.props.register(this.state);
     } catch(e) {
-      this.setState({modalState: {isModalOpen: true, content: e.message}});
+      this.props.openModal(e.message);
     }
   }
 
@@ -56,10 +52,6 @@ class Register extends Component {
   _validatePassword(password) {
     const regex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
     return regex.test(password);
-  }
-
-  _closeModal() {
-    this.setState({modalState: {isModalOpen: false}});
   }
 
   render() {
@@ -121,9 +113,7 @@ class Register extends Component {
                   content="Register"
                   type="submit"
                   size="large" />
-                <AuthModal
-                  modalProps={ this.state.modalState }
-                  close={() => this.setState({modalState: { isModalOpen: false, content: ""}})} />
+                <AuthModal />
               </Segment>
             </Form>
           </Grid.Column>
@@ -134,9 +124,18 @@ class Register extends Component {
 }
 
 Register.propTypes = {
-  onRegisterSubmit: PropTypes.func
+  register: PropTypes.func
 };
+const mapStateToProps = state => ({
+  modalState: state.modal
+});
+const mapDispatchToProps = dispatch => ({
+  register: async oBody => {
+    await dispatch(AuthActions.register(oBody));
+  },
+  openModal: content => {
+    dispatch(ModalActions.openModal(content));
+  }
+});
 
-const mapStateToProps = state => (state);
-
-export default connect(mapStateToProps, authActions)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

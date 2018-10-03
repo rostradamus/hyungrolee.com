@@ -1,7 +1,9 @@
-import authActions from './authActions';
-import postActions from './postActions';
+import AuthActions from './AuthActions';
+import PostActions from './PostActions';
+import ModalActions from './ModalActions';
 
 export {
-  authActions,
-  postActions
+  AuthActions,
+  PostActions,
+  ModalActions
 };

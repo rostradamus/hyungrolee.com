@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
-import authActions from 'Actions/authActions';
 import AuthModal from './AuthModal';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Auth.less';
-
+import { AuthActions, ModalActions } from 'Actions';
 
 // TODO: Password Encryption is required (See bcrypt)
 class Auth extends Component {
@@ -13,25 +12,16 @@ class Auth extends Component {
     super(props);
     this.state={
       email: '',
-      password: '',
-      modalState: {
-        isModalOpen: false,
-        content: ""
-      }
+      password: ''
     };
   }
 
   async _submitHandler() {
     try {
       const {email, password} = this.state;
-      await this.props.onLoginSubmit(email, password);
+      await this.props.login(email, password);
     } catch (e) {
-      this.setState({
-        modalState: {
-          isModalOpen: true,
-          content: e.message
-        }
-      });
+      this.props.openModal(e.message);
     }
   }
 
@@ -73,9 +63,7 @@ class Auth extends Component {
                       {<Message>
                           New to us? <Link to='/register'> Sign Up </Link>
                       </Message>}
-                      <AuthModal
-                        modalProps={ this.state.modalState }
-                        close={() => this.setState({modalState: { isModalOpen: false, content: ""}})} />
+                      <AuthModal />
                   </Grid.Column>
               </Grid>
           </div>
@@ -84,8 +72,16 @@ class Auth extends Component {
 }
 
 const mapStateToProps = state => ({user: state.auth});
+const mapDispatchToProps = dispatch => ({
+  login: async (email, password) => {
+    await dispatch(AuthActions.login(email, password));
+  },
+  openModal: content => {
+    dispatch(ModalActions.openModal(content));
+  }
+});
 
-export default connect(mapStateToProps, authActions)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
 
 
 

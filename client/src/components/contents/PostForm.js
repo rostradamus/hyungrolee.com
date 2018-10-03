@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, TextArea } from 'semantic-ui-react';
-import { postActions } from 'Actions';
+import { PostActions } from 'Actions';
 import axios from 'axios';
 import './PostForm.less';
 
@@ -25,7 +25,7 @@ class PostForm extends Component {
   _submitHandler() {
     const data = this.state,
       postId = this.props.match.params.postId;
-    postId ? this.props.editPost(data) : this.props.submitPost(data);
+    postId ? this.props.editPost(data) : this.props.createPost(data);
   }
 
   _onChangeInputHandler(e) {
@@ -70,5 +70,13 @@ class PostForm extends Component {
 const mapStateToProps = state => ({
   user: state.auth.userName
 });
+const mapDispatchToProps = dispatch => ({
+  editPost: data => {
+    dispatch(PostActions.editPost(data));
+  },
+  createPost: data => {
+    dispatch(PostActions.createPost(data));
+  }
+});
 
-export default connect(mapStateToProps, postActions)(PostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postActions } from 'Actions';
+import { PostActions } from 'Actions';
 import PostCard from './PostCard';
 import { Button, Divider, Card, Menu, Input, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    this.props.fetchPosts();
   }
 
   render() {
@@ -52,5 +52,10 @@ class PostList extends Component {
 const mapStateToProps = state => ({
   posts: state.posts
 });
+const mapDispatchToProps = dispatch => ({
+  fetchPosts: () => {
+    dispatch(PostActions.fetchPosts());
+  }
+});
 
-export default connect(mapStateToProps, postActions)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
