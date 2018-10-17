@@ -2,11 +2,17 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CommentSchema = new Schema({
-  postId: String,  
-  authorId: String,
-  author: String,
+  postId: {
+  	type: Schema.Types.ObjectId,
+  	ref: "Post"
+  },
+  author: {
+  	type: Schema.Types.ObjectId,
+  	ref: 'User'
+  },
   time: { type : Date, default: Date.now },
-  content: String
+  content: String,
+  isHidden: Boolean
 }, { collection: 'Comment' });
 
 mongoose.model('Comment', CommentSchema);

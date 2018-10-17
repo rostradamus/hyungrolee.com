@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 import { AuthActions, ModalActions } from "Actions";
-import AuthModal from './AuthModal';
 import { connect } from "react-redux";
 
 class Register extends Component {
@@ -113,7 +112,6 @@ class Register extends Component {
                   content="Register"
                   type="submit"
                   size="large" />
-                <AuthModal />
               </Segment>
             </Form>
           </Grid.Column>

@@ -11,7 +11,7 @@ const _hasLoggedIn = (req, res, next) => {
 }
 
 module.exports = app => {
-  app.post("/api/post/:postId/comment",
+  app.post("/api/posts/:postId/comment",
     _hasLoggedIn,
     (req, res) => {
       const comment = new Comment({
@@ -28,7 +28,7 @@ module.exports = app => {
       });
   });
 
-  app.get("/api/post/:postId/comment",
+  app.get("/api/posts/:postId/comment",
     (req, res) => {
       const order = { time: -1 };
       const postId = req.params.postId;
@@ -41,12 +41,12 @@ module.exports = app => {
       });
   });
 
-  app.get("/api/post/:postId/comment/:commentId",
+  app.get("/api/posts/:postId/comment/:commentId",
     (req, res) => {
 
   });
 
-  app.delete("/api/post/:postId/comment/:commentId",
+  app.delete("/api/posts/:postId/comment/:commentId",
     _hasLoggedIn,
     (req, res) => {
 

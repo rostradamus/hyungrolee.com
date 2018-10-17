@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Auth, PostList, PostForm, PostDetail, Register, PageNotFound } from './contents';
+import { Auth, PostList, PostForm, PostDetail, Register, PageNotFound, AuthModal } from './contents';
 import { Header, SlideBar } from './frames';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
@@ -42,6 +42,7 @@ class App extends Component {
           <SlideBar 
             pusher={ <Container className="appBody"> {segment} </Container> } 
             visible={ this.state.slideBarVisible } />
+          <AuthModal />
         </div>
       </Router>
       );

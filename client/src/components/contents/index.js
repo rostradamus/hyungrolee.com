@@ -1,4 +1,5 @@
 import Auth from './Auth';
+import AuthModal from './AuthModal';
 import PostCard from './PostCard';
 import PostForm from './PostForm';
 import PostList from './PostList';
@@ -8,6 +9,7 @@ import PageNotFound from './PageNotFound';
 
 export {
   Auth,
+  AuthModal,
   PostCard,
   PostForm,
   PostList,

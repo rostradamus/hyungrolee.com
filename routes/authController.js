@@ -62,6 +62,7 @@ module.exports = app => {
       res.status(401);
       res.redirect('/login');
     }
+    res.status(200);
     res.send(req.user);
   });
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
-import AuthModal from './AuthModal';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Auth.less';
@@ -63,7 +62,6 @@ class Auth extends Component {
                       {<Message>
                           New to us? <Link to='/register'> Sign Up </Link>
                       </Message>}
-                      <AuthModal />
                   </Grid.Column>
               </Grid>
           </div>

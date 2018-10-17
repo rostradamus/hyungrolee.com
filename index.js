@@ -13,8 +13,12 @@ const db = {
   pass: process.env.PBLOG_DB_PASSWORD,
   uri: process.env.PBLOG_DB_URI
 };
+mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}`, {useNewUrlParser: true });
+mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}`, {
+  useCreateIndex: true,
+  useNewUrlParser: true 
+});
 
 const app = express();
 app.use(morgan('dev'));
@@ -29,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(`${__dirname}/client/build`));
+app.disable('etag');
 
 // Import Models
 require('./models/User');

@@ -15,8 +15,12 @@ class PostList extends Component {
     this.props.fetchPosts();
   }
 
+  getPostCards() {
+    return this.props.posts.items.map(post =>
+      <PostCard key={post._id} post={post} />);
+  }
+
   render() {
-    const posts = this.props.posts.map(post => <PostCard key={post._id} post={post} />);
     return (
       <div>
         <Menu secondary>
@@ -42,7 +46,7 @@ class PostList extends Component {
         
         <Divider />
         <Card.Group itemsPerRow='4' >
-          { posts }
+          { this.getPostCards() }
         </Card.Group>
       </div>
     );
