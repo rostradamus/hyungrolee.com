@@ -1,8 +1,7 @@
 import { modalConstants } from 'Actions/actionTypes';
 
 export default (state = {}, action) => {
-  console.log(action);
-    switch (action.type) {
+  switch (action.type) {
     case modalConstants.CLOSE_MODAL: {
         return Object.assign({... state}, {isModalOpen: false}, action.payload);
     }

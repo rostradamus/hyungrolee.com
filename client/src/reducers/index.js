@@ -8,5 +8,5 @@ export default combineReducers({
     auth: authReducer,
     posts: postReducer,
     modal: modalReducer,
-    comment: commentReducer
+    comments: commentReducer
 });

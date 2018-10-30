@@ -9,7 +9,6 @@ export default class ModalActions {
   }
 
   static openModal(content) {
-    console.log(content);
     return dispatch => dispatch({
       type: modalConstants.OPEN_MODAL,
       payload: {content: content}

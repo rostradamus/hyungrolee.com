@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form } from "semantic-ui-react";
+import { CommentActions } from 'Actions';
 
 class CommentForm extends Component {
 	constructor(props) {
@@ -10,18 +11,23 @@ class CommentForm extends Component {
 		};
 	}
 
-	_onSubmitComment() {
-		// const content = this.state.content;
-
+	async _onSubmitComment() {
+		this.props.addComment(this.props.post._id, {
+			author: this.props.user._id,
+			content: this.state.content
+		});
+		this.setState({content: ""});
 	}
 
 	render() {
 		return (
 			<Form className="comment-form" onSubmit={ this._onSubmitComment.bind(this) } >
-				<Form.Input 
-					name="comment-content"
-					placeholder="Leave a comment"
-					value= { this.state.content }
+				<Form.TextArea
+					name = "comment-content"
+					placeholder = "Leave a comment"
+					value = { this.state.content }
+					autoHeight
+					rows = "1"
 					onChange = {(_, newValue) => this.setState({content:newValue.value})} />
 				<Button type="submit" content="submit" size="tiny"/>
 			</Form>
@@ -30,7 +36,14 @@ class CommentForm extends Component {
 }
 
 const mapStateToProps = state => ({
+	post: state.posts.selected,
 	user: state.auth
 });
 
-export default connect(mapStateToProps)(CommentForm);
+const mapDispatchToProps = dispatch => ({
+	addComment: async (postId, data) => {
+		await dispatch(CommentActions.addComment(postId, data));
+	}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);

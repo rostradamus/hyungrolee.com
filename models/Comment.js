@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const CommentSchema = new Schema({
-  postId: {
+  post: {
   	type: Schema.Types.ObjectId,
   	ref: "Post"
   },
@@ -10,9 +10,9 @@ const CommentSchema = new Schema({
   	type: Schema.Types.ObjectId,
   	ref: 'User'
   },
-  time: { type : Date, default: Date.now },
-  content: String,
-  isHidden: Boolean
+  created_at: { type : Date, default: Date.now },
+  content: {type: String, required: true},
+  isHidden: {type: Boolean, default: false}
 }, { collection: 'Comment' });
 
 mongoose.model('Comment', CommentSchema);

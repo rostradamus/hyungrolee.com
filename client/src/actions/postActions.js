@@ -107,14 +107,12 @@ export default class PostActions {
       });
       try {
         res = await axios.put('/api/posts', data);
-        console.log(res.data);
         dispatch({
           type: POST_ACTION_TYPES.EDIT_SUCCESS,
           payload: {
             selected: res.data
           }
         });
-        // window.location = '/post/detail/' + res.data._id;
         history.push(`/post/detail/${res.data._id}`);
       } catch (err) {
         dispatch({
@@ -130,7 +128,6 @@ export default class PostActions {
 
   static deletePost(postId, history) {
     return async dispatch => {
-      let res;
       dispatch({
         type: POST_ACTION_TYPES.DELETE_REQUEST,
         payload: {
@@ -138,10 +135,9 @@ export default class PostActions {
         }
       });
       try {
-        res = await axios.delete(`/api/posts/${postId}`);
-        if (res.status !== 200) {
-          console.log("Error!");
-        }
+        await axios.delete(`/api/posts/${postId}`, {
+          validateStatus: status => status === 204
+        });
         dispatch({
           type: POST_ACTION_TYPES.DELETE_SUCCESS,
           payload: {

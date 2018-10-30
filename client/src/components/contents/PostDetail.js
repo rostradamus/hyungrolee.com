@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Header, Container, Divider, Button, Icon } from 'semantic-ui-react';
+import { Segment, Header, Container, Divider, Button, Icon, Comment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './PostDetail.less';
 import CommentForm from "./comment/CommentForm";
-import { PostActions } from 'Actions';
+import CommentItem from "./comment/CommentItem";
+import { PostActions, CommentActions } from 'Actions';
+import TimeUtils from "Utils/TimeUtils";
 
 class PostDetail extends Component {
 
@@ -18,15 +20,19 @@ class PostDetail extends Component {
         && this.props.posts.selected._id === postId;
     if (isSelectedSamePostId || this.props.posts.isFetching)
       return;
-    this.props.selectPost(postId);
+    Promise.all([this.props.selectPost(postId), this.props.getComments(postId)]);
   }
 
   async _deletePost(postId) {
     await this.props.deletePost(postId, this.props.history);
   }
 
+  _renderComments() {
+    return this.props.comments.items.map(comment => 
+      <CommentItem key={comment._id} comment={comment} />);
+  }
+
   renderContent(post) {
-    const time = new Date(post.time).toLocaleString(navigator.language);
     return (
       <div>
         <Button
@@ -49,11 +55,13 @@ class PostDetail extends Component {
           </Button.Content>
         </Button>
         <Header content={ post.title }/>
-        <Header.Subheader content={ time } />
+        <Header.Subheader content={ TimeUtils.makeTimeToLocalString(post.time) } />
         <Header.Subheader content={ "by " + post.author } />
         <Divider />
         <Container text className="postDetailContent" content={ post.content } />
+        <Divider />
         <CommentForm />
+        <Comment.Group> { this._renderComments() } </Comment.Group>
       </div>
     );
   }
@@ -69,15 +77,18 @@ class PostDetail extends Component {
 
 const mapStateToProps = state => ({
   posts: state.posts,
-  comment: state.comment
+  comments: state.comments
 });
 
 const mapDispatchToProps = dispatch => ({
   selectPost: async postId => {
-    await dispatch(PostActions.selectPost(postId));
+    dispatch(PostActions.selectPost(postId));
   },
   deletePost: async (postId, history) => {
     await dispatch(PostActions.deletePost(postId, history));
+  },
+  getComments: async postId => {
+    dispatch(CommentActions.getComments(postId));
   }
 });
 

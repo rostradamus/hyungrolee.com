@@ -10,7 +10,6 @@ class AuthModal extends Component {
 
   render() {
     const { modalState, closeModal } = this.props;
-    console.log(modalState);
     return (
       <Modal
         size="mini"

@@ -11,15 +11,12 @@ const _hasLoggedIn = (req, res, next) => {
 }
 
 module.exports = app => {
-  app.post("/api/posts/:postId/comment",
+  app.post("/api/posts/:post_id/comment",
     _hasLoggedIn,
     (req, res) => {
-      const comment = new Comment({
-        postId: "5b67b64a8ccedb9ac7c8b8d2",
-        authorId: "5a935603e5f81f9238477579",
-        author: "Ro Lee",
-        content: "Hello this is first comment"
-      });
+      const { author, content } = req.body,
+        post = req.params.post_id;
+      const comment = new Comment({ post, author, content });
       // const comment = new Comment(Object.assign, req.body, { authorId: req.user._id });
       comment.save((err, target) => {
         if (err) res.send(err);
@@ -28,25 +25,26 @@ module.exports = app => {
       });
   });
 
-  app.get("/api/posts/:postId/comment",
+  app.get("/api/posts/:post_id/comment",
     (req, res) => {
-      const order = { time: -1 };
-      const postId = req.params.postId;
-      Post.findById({ postId }, (err, post) => {
-        Comment.find({ postId }).sort(order).exec((err, comments) => {
+      const order = { created_at: -1 };
+      const post = req.params.post_id;
+      Comment.find({ post })
+        .populate({ path: "author", select: "userName-_id" })
+        .sort(order)
+        .exec((err, comments) => {
           if (err) res.send(err);
           res.status(200);
           res.send(comments);
         });
-      });
   });
 
-  app.get("/api/posts/:postId/comment/:commentId",
+  app.get("/api/posts/:post_id/comment/:commentId",
     (req, res) => {
 
   });
 
-  app.delete("/api/posts/:postId/comment/:commentId",
+  app.delete("/api/posts/:post_id/comment/:commentId",
     _hasLoggedIn,
     (req, res) => {
 
