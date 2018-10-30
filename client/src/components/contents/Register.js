@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Form, Grid, Header, Segment, Modal, Icon } from "semantic-ui-react";
-import authActions from "Actions/authActions";
+import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
+import { AuthActions, ModalActions } from "Actions";
 import { connect } from "react-redux";
 
 class Register extends Component {
@@ -13,20 +13,16 @@ class Register extends Component {
       userName: "",
       email: "",
       password: "",
-      cPassword: "",
-      modalState: {
-        isModalOpen: false,
-        content: ""
-      }
+      cPassword: ""
     };
   }
 
   async _submitHandler() {
     try {
       this._validateForm();
-      await this.props.onRegisterSubmit(this.state);
+      await this.props.register(this.state);
     } catch(e) {
-      this.setState({modalState: {isModalOpen: true, content: e.message}});
+      this.props.openModal(e.message);
     }
   }
 
@@ -57,12 +53,7 @@ class Register extends Component {
     return regex.test(password);
   }
 
-  _closeModal() {
-    this.setState({modalState: {isModalOpen: false}});
-  }
-
   render() {
-    const { modalState } = this.state;
     return (
       <div className="register-form">
         <Grid
@@ -121,20 +112,6 @@ class Register extends Component {
                   content="Register"
                   type="submit"
                   size="large" />
-                <Modal
-                  size="mini"
-                  open={ modalState.isModalOpen }
-                  onClose={ this._closeModal.bind(this) }
-                  basic>
-                  <Modal.Content
-                    as="p"
-                    content={ modalState.content }/>
-                  <Modal.Actions>
-                    <Button color='green' onClick={ this._closeModal.bind(this) } inverted>
-                      <Icon name='checkmark' /> Got it
-                    </Button>
-                  </Modal.Actions>
-                </Modal>
               </Segment>
             </Form>
           </Grid.Column>
@@ -145,9 +122,18 @@ class Register extends Component {
 }
 
 Register.propTypes = {
-  onRegisterSubmit: PropTypes.func
+  register: PropTypes.func
 };
+const mapStateToProps = state => ({
+  modalState: state.modal
+});
+const mapDispatchToProps = dispatch => ({
+  register: async oBody => {
+    await dispatch(AuthActions.register(oBody));
+  },
+  openModal: content => {
+    dispatch(ModalActions.openModal(content));
+  }
+});
 
-const mapStateToProps = state => (state);
-
-export default connect(mapStateToProps, authActions)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

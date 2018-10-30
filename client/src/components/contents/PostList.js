@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postActions } from 'Actions';
+import { PostActions } from 'Actions';
 import PostCard from './PostCard';
 import { Button, Divider, Card, Menu, Input, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -12,11 +12,15 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    this.props.fetchPosts();
+  }
+
+  getPostCards() {
+    return this.props.posts.items.map(post =>
+      <PostCard key={post._id} post={post} />);
   }
 
   render() {
-    const posts = this.props.posts.map(post => <PostCard key={post._id} post={post} />);
     return (
       <div>
         <Menu secondary>
@@ -42,7 +46,7 @@ class PostList extends Component {
         
         <Divider />
         <Card.Group itemsPerRow='4' >
-          { posts }
+          { this.getPostCards() }
         </Card.Group>
       </div>
     );
@@ -52,5 +56,10 @@ class PostList extends Component {
 const mapStateToProps = state => ({
   posts: state.posts
 });
+const mapDispatchToProps = dispatch => ({
+  fetchPosts: () => {
+    dispatch(PostActions.fetchPosts());
+  }
+});
 
-export default connect(mapStateToProps, postActions)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

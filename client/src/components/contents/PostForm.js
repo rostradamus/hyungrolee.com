@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Form, TextArea } from 'semantic-ui-react';
-import { postActions } from 'Actions';
-import axios from 'axios';
+import { PostActions } from 'Actions';
 import './PostForm.less';
 
 class PostForm extends Component {
@@ -17,15 +16,15 @@ class PostForm extends Component {
       title: "",
       author: props.user,
       content: "",
-      attachment: "",
-      isLoading: bIsEditMode
+      attachment: ""
     };
   }
 
   _submitHandler() {
     const data = this.state,
+      history = this.props.history,
       postId = this.props.match.params.postId;
-    postId ? this.props.editPost(data) : this.props.submitPost(data);
+    postId ? this.props.editPost(data, history) : this.props.createPost(data, history);
   }
 
   _onChangeInputHandler(e) {
@@ -35,15 +34,19 @@ class PostForm extends Component {
     });
   }
 
-  async _getFormContent(sPostId) {
-    const { data } = await axios.get('/api/post/' + sPostId);
-    console.log(data);
-    this.setState(Object.assign({...data}, {isLoading: false}));
+  async _getFormContent(postId) {
+    await this.props.selectPost(postId);
+    if (!this.props.posts.selected.bIsAuthor) {
+      this.props.history.goBack();
+      return;
+    }
+    this.setState(this.props.posts.selected);
   }
 
   render() {
+
     return (
-      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) } loading= { this.state.isLoading }>
+      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) } loading= { this.props.posts.isFetching }>
       <Form.Field>
         <label>Title</label>
         <input 
@@ -68,7 +71,19 @@ class PostForm extends Component {
 }
 
 const mapStateToProps = state => ({
+  posts: state.posts,
   user: state.auth.userName
 });
+const mapDispatchToProps = dispatch => ({
+  editPost: (data, history) => {
+    dispatch(PostActions.editPost(data, history));
+  },
+  createPost: (data, history) => {
+    dispatch(PostActions.createPost(data, history));
+  },
+  selectPost: async postId => {
+    await dispatch(PostActions.selectPost(postId));
+  }
+});
 
-export default connect(mapStateToProps, postActions)(PostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Auth, PostList, PostForm, PostDetail, Register, PageNotFound } from './contents';
+import { Auth, PostList, PostForm, PostDetail, Register, PageNotFound, AuthModal } from './contents';
 import { Header, SlideBar } from './frames';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import authActions from 'Actions/authActions';
+import { AuthActions } from 'Actions';
 import './App.less';
 
 const LOGIN_PATH = "/login";
@@ -20,7 +20,7 @@ class App extends Component {
 
   componentDidMount() {
     if (!this.props.user) {
-      this.props.fetchUser();
+      this.props.fetchUserCookie();
     }
     else if (this._shouldRedirectToLogin()) {
       window.location = "/login";
@@ -42,6 +42,7 @@ class App extends Component {
           <SlideBar 
             pusher={ <Container className="appBody"> {segment} </Container> } 
             visible={ this.state.slideBarVisible } />
+          <AuthModal />
         </div>
       </Router>
       );
@@ -76,5 +77,10 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({user: state.auth});
+const mapDispatchToProps = dispatch => ({
+  fetchUserCookie: () => {
+    dispatch(AuthActions.fetchUserSession());
+  }
+});
 
-export default connect(mapStateToProps, authActions)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

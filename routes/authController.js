@@ -5,8 +5,10 @@ require('../models/User');
 const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => done(null, user._id));
-passport.deserializeUser((id, done) => User.findById(id)
-  .then(user => done(null, { _id: user._id, userName: user.userName })));
+passport.deserializeUser((id, done) =>
+  User.findById(id)
+    .then(user => done(null, { _id: user._id, userName: user.userName }))
+    .catch(err => done(err, null, { message: "User does NOT exist"})));
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -60,6 +62,7 @@ module.exports = app => {
       res.status(401);
       res.redirect('/login');
     }
+    res.status(200);
     res.send(req.user);
   });
 

@@ -1,52 +1,71 @@
 import { userConstants } from "./actionTypes";
 import axios from "axios";
 
-const loginAction = {
-  _request: user => ({ type: userConstants.LOGIN_REQUEST, payload: user }),
-  _success: user => ({ type: userConstants.LOGIN_SUCCESS, payload: user }),
-  _failure: error => ({ type: userConstants.LOGIN_FAILURE, payload: error })
-};
-const registerAction = {
-  _request: user => ({ type: userConstants.REGISTER_REQUEST, payload: user }),
-  _success: user => ({ type: userConstants.REGISTER_SUCCESS, payload: user }),
-  _failure: error => ({ type: userConstants.REGISTER_FAILURE, payload: error })
-};
-
-const authActions = dispatch => ({
-  fetchUser: async function() {
-    let res;
-    dispatch(loginAction._request(res));
-    try {
-      res = await axios.get("/api/user/current_user");
-      dispatch(loginAction._success(res.data));
-    } catch (err) {
-      dispatch(loginAction._failure(err));
-    }
-  },
-
-  onLoginSubmit: async function(email, password) {
-    dispatch(loginAction._request({ email }));
-    let res;
-    try {
-      res = await axios.post("/api/user/authenticate", { email, password });
-      dispatch(loginAction._success(res.data));
-    } catch (err) {
-      dispatch(loginAction._failure(err));
-    }
-  },
-
-  onRegisterSubmit: async function(oBody) {
-    let res;
-    dispatch(registerAction._request(res));
-    try {
-      res = await axios.post("/api/user/register", oBody);
-      dispatch(registerAction._success(res.data));
-    } catch (err) {
-      dispatch(registerAction._failure(err));
-      // TODO: shouldn't use err.response.data, instead should use e.message
-      throw new Error(err.response.data.errmsg);
-    }
+export default class AuthActions {
+  static fetchUserSession() {
+    return async dispatch => {
+      let res;
+      dispatch(this._requestLogin(res));
+      try {
+        res = await axios.get("/api/user/current_user");
+        dispatch(this._resolveLogin(res.data));
+      } catch (err) {
+        dispatch(this._failLogin(err));
+      }
+    };
   }
-});
 
-export default authActions;
+  static login(email, password) {
+    return async dispatch => {
+      let res;
+      dispatch(this._requestLogin({ email }));
+      try {
+        res = await axios.post("/api/user/authenticate", { email, password });
+        dispatch(this._resolveLogin(res.data));
+      } catch (err) {
+        dispatch(this._failLogin(err));
+        // TODO: shouldn't be hardcoded here in the front-end
+        throw new Error("Please check your email address or password");
+      }
+    };
+  }
+
+  static register(oBody) {
+    return async dispatch => {
+      let res;
+      dispatch(this._requestRegister(oBody));
+      try {
+        res = await axios.post("/api/user/register", oBody);
+        dispatch(this._resolveRegister(res.data));
+      } catch (err) {
+        dispatch(this._failRegister(err));
+        // TODO: shouldn't use err.response.data, instead should use e.message
+        throw new Error(err.response.data.errmsg);
+      }
+    };
+  }
+
+  static _requestLogin(data) {
+    return { type: userConstants.LOGIN_REQUEST, payload: data };
+  }
+
+  static _resolveLogin(user) {
+    return { type: userConstants.LOGIN_SUCCESS, payload: user };
+  }
+
+  static _failLogin(error) {
+    return { type: userConstants.LOGIN_FAILURE, payload: error };
+  }
+
+  static _requestRegister(data) {
+    return { type: userConstants.REGISTER_REQUEST, payload: data };
+  }
+
+  static _resolveRegister(user) {
+    return { type: userConstants.REGISTER_SUCCESS, payload: user };
+  }
+
+  static _failRegister(error) {
+    return { type: userConstants.REGISTER_FAILURE, payload: error };
+  }
+}
