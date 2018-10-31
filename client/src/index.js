@@ -8,12 +8,11 @@ import App from './components/App';
 import reducers from './reducers';
 import './index.less';
 import 'semantic-ui-css/semantic.min.css';
-
 import axios from 'axios';
 window.axios = axios;
 
-
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk, logger));
+const middlewares = process.env.NODE_ENV !== "production" ? [reduxThunk, logger] : [reduxThunk];
+const store = createStore(reducers, {}, applyMiddleware(...middlewares));
 
 ReactDOM.render(
   <Provider store={ store }>
