@@ -10,8 +10,6 @@ const UserSchema = new Schema({
     token: String
 }, { collection: 'User' });
 
-UserSchema.methods.verifyPassword = function(candidatePassword, cb) {
-    return this.password === candidatePassword;
-};
+UserSchema.plugin(require('mongoose-bcrypt'));
 
 mongoose.model('User', UserSchema);
