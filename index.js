@@ -17,7 +17,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}`, {
   useCreateIndex: true,
-  useNewUrlParser: true 
+  useNewUrlParser: true
 });
 
 const app = express();
@@ -41,17 +41,28 @@ require('./models/Comment');
 require('./models/Post');
 
 // Import Rest Controllers
-require('./routes/authController')(app);
-require('./routes/commentController')(app);
-require('./routes/postController')(app);
+// require('./routes/authController')(app);
+// require('./routes/commentController')(app);
+// require('./routes/postController')(app);
+// const authController= require('./routes/authController');
+// app.use("/api/user", authController);
+// const postController = require('./routes/postController');
+// app.use("/api/posts/", postController);
+// const commentController = require('./routes/commentController');
+// app.use("/api/comments", commentController);
 
-// Serve application level controller
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
-    if (err) {
-      res.status(500).send(err);
-    }
-  })
-})
+
+
+
+// // Serve application level controller
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
+//     if (err) {
+//       res.status(500).send(err);
+//     }
+//   })
+// });
+const routes = require('./routes');
+app.use("/", routes);
 
 app.listen(5000);

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Auth, PostList, PostForm, PostDetail, Register, PageNotFound, AuthModal } from './contents';
+import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal } from './contents';
 import { Header, SlideBar } from './frames';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import { AuthActions } from 'Actions';
 import './App.less';
 
@@ -39,8 +39,8 @@ class App extends Component {
       <Router>
         <div className='App'>
           <Header toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
-          <SlideBar 
-            pusher={ <Container className="appBody"> {segment} </Container> } 
+          <SlideBar
+            pusher={ <Segment inverted className="appBody"> {segment} </Segment> }
             visible={ this.state.slideBarVisible } />
           <AuthModal />
         </div>
@@ -51,10 +51,10 @@ class App extends Component {
   _renderRoutes() {
     return (
         <Switch>
-          <Route key='post_list' path="/post/list" component={PostList} />
-          <Route key='post_form' exact path="/post/new/" component={PostForm} />
-          <Route key='post_edit' path="/post/edit/:postId" component={PostForm} />
-          <Route key='post_detail' path="/post/detail/:postId" component={PostDetail} />
+          <Route key='post_list' path="/post/list" component={PostCardList} />
+          <Route key='post_form' exact path="/post/new/" component={PostContainer} content={PostForm}/>
+          <Route key='post_edit' path="/post/edit/:postId" component={PostContainer} content={PostForm} />
+          <Route key='post_detail' path="/post/detail/:postId" component={PostContainer} />
           <Route key="page_404" path="*" component= { PageNotFound } />
         </Switch>
       );
@@ -63,6 +63,8 @@ class App extends Component {
   _renderAuthRoutes() {
     return (
         <Switch>
+          <Route key='post_list' path="/post/list" component={PostCardList} />
+          <Route key='post_detail' path="/post/detail/:postId" component={PostContainer} />
           <Route key="register" path={ REGISTER_PATH } component={ Register } />
           <Route key="login" path={ LOGIN_PATH } component={ Auth } />
           <Route key="page_404" path="*" component= { PageNotFound } />

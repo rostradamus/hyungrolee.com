@@ -11,8 +11,8 @@ export default class CommentActions {
         }
       });
       try {
-        await axios.post(`/api/posts/${postId}/comment`, data);
-        const newItems = (await axios.get(`/api/posts/${postId}/comment`)).data;
+        await axios.post(`/api/posts/${postId}/comments`, data);
+        const newItems = (await axios.get(`/api/posts/${postId}/comments`)).data;
         dispatch({
           type: COMMENT_ACTION_TYPES.ADD_SUCCESS,
           payload: {
@@ -30,10 +30,31 @@ export default class CommentActions {
     };
   }
 
-  // static deleteComment(data) {
-  //   return async dispatch => {
-  //   };
-  // }
+  static deleteComment(postId, commentId) {
+    return async dispatch => {
+      dispatch({
+        type: COMMENT_ACTION_TYPES.DELETE_REQUEST,
+        payload: {
+          isFetching: true
+        }
+      });
+      try {
+        await axios.delete(`/api/posts/${postId}/comments/${commentId}`, {
+          validateStatus: status => status === 204
+        });
+        dispatch({
+          type: COMMENT_ACTION_TYPES.DELETE_SUCCESS
+        });
+      } catch (err) {
+        dispatch({
+          type: COMMENT_ACTION_TYPES.DELETE_FAILURE,
+          payload: {
+            error: err.message
+          }
+        });
+      }
+    };
+  }
 
   // static getComment() {
 
@@ -49,7 +70,7 @@ export default class CommentActions {
         }
       });
       try {
-        res = await axios.get(`/api/posts/${postId}/comment`);
+        res = await axios.get(`/api/posts/${postId}/comments`);
         dispatch({
           type: COMMENT_ACTION_TYPES.FETCH_SUCCESS,
           payload: {

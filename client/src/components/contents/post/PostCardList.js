@@ -5,7 +5,7 @@ import PostCard from './PostCard';
 import { Button, Divider, Card, Menu, Input, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-class PostList extends Component {
+class PostCardList extends Component {
 
   constructor(props) {
     super(props);
@@ -20,6 +20,10 @@ class PostList extends Component {
       <PostCard key={post._id} post={post} />);
   }
 
+  _hasLoggedIn() {
+    return this.props.user && this.props.user._id;
+  }
+
   render() {
     return (
       <div>
@@ -28,8 +32,9 @@ class PostList extends Component {
             <Button
               size='tiny'
               inverted
-              as={ Link } 
+              as={ Link }
               to='/post/new'
+              disabled={ !this._hasLoggedIn() }
               animated='vertical'>
               <Button.Content hidden>Create</Button.Content>
               <Button.Content visible>
@@ -43,9 +48,9 @@ class PostList extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        
+
         <Divider />
-        <Card.Group itemsPerRow='4' >
+        <Card.Group itemsPerRow='5' >
           { this.getPostCards() }
         </Card.Group>
       </div>
@@ -54,6 +59,7 @@ class PostList extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.auth,
   posts: state.posts
 });
 const mapDispatchToProps = dispatch => ({
@@ -62,4 +68,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostCardList);

@@ -20,7 +20,7 @@ export default class AuthActions {
       let res;
       dispatch(this._requestLogin({ email }));
       try {
-        res = await axios.post("/api/user/authenticate", { email, password });
+        res = await axios.post("/api/user", { email, password });
         dispatch(this._resolveLogin(res.data));
       } catch (err) {
         dispatch(this._failLogin(err));
@@ -53,8 +53,8 @@ export default class AuthActions {
     return { type: userConstants.LOGIN_SUCCESS, payload: user };
   }
 
-  static _failLogin(error) {
-    return { type: userConstants.LOGIN_FAILURE, payload: error };
+  static _failLogin() {
+    return { type: userConstants.LOGIN_FAILURE, payload: {} };
   }
 
   static _requestRegister(data) {

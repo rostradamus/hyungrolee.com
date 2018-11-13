@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Form } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 import { CommentActions } from 'Actions';
 
 class CommentForm extends Component {
@@ -22,14 +22,20 @@ class CommentForm extends Component {
 	render() {
 		return (
 			<Form className="comment-form" onSubmit={ this._onSubmitComment.bind(this) } >
-				<Form.TextArea
-					name = "comment-content"
-					placeholder = "Leave a comment"
-					value = { this.state.content }
-					autoHeight
-					rows = "1"
-					onChange = {(_, newValue) => this.setState({content:newValue.value})} />
-				<Button type="submit" content="submit" size="tiny"/>
+				<Form.Group>
+					<Form.Field width={12}>
+						<Form.TextArea
+							name = "comment-content"
+							placeholder = "Leave a comment"
+							value = { this.state.content }
+							autoHeight
+							rows = "1"
+							onChange = {(_, newValue) => this.setState({content:newValue.value})} />
+					</Form.Field>
+					<Form.Field>
+						<Form.Button type="submit" content="submit" size="tiny"/>
+					</Form.Field>
+				</Form.Group>
 			</Form>
 		);
 	}

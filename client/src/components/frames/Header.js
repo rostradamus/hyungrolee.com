@@ -8,14 +8,13 @@ class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: 'blog'
+      activeItem: ''
     };
   }
 
   _handleClickSlideBar() {
     this.props.toggleHandler();
   }
-  
 
   _handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
@@ -27,17 +26,17 @@ class Header extends Component {
 
   _createItemRight({path, name}) {
     const { activeItem } = this.state;
-    const result = 
-      <Menu.Item 
+    const result =
+      <Menu.Item
         position='right'
-        className='menu_right_item'
-        as={ Link } 
+        className='header_item'
+        as={ Link }
         to={ path }
         key={ name }
         name={ name }
-        active={activeItem === name} 
+        active={activeItem === name}
         onClick={this._handleItemClick.bind(this)} />;
-      
+
     return result;
   }
 
@@ -46,9 +45,24 @@ class Header extends Component {
       case undefined:
       case null:
       case false:
-        return <Menu.Item className='menu_right_item' position='right' key='login' name='login' href='/login' />;
+        return (
+            <Menu.Item
+              className='header_item'
+              position='right'
+              key='login'
+              name='login'
+              as={ Link }
+              to='/login' />
+          );
       default:
-        return <Menu.Item className='menu_right_item' position='right' key='logout' name='logout' href='/api/user/logout' />;
+        return (
+            <Menu.Item
+            className='header_item'
+            position='right'
+            key='logout'
+            name='logout'
+            href='/api/user/logout' />
+          );
     }
   }
 
@@ -75,13 +89,15 @@ class Header extends Component {
 
     return (
       <Segment className='frame_header'>
-        <Menu pointing secondary>
-          <Menu.Item 
+        <Menu pointing secondary inverted>
+          <Menu.Item
+            className="header_item"
             header
             position='left'
-            content="ro.Stradamus"
+            content="ro.stradamus"
             onClick={ this._handleClickSlideBar.bind(this) } />
-          <Menu.Item 
+          <Menu.Item
+            className="header_item"
             position='right'
             as={ Link }
             to='/about'

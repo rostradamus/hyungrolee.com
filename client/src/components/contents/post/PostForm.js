@@ -46,21 +46,25 @@ class PostForm extends Component {
   render() {
 
     return (
-      <Form className="postForm" onSubmit={ this._submitHandler.bind(this) } loading= { this.props.posts.isFetching }>
-      <Form.Field>
-        <label>Title</label>
-        <input 
-          name='title' 
+      <Form
+        inverted
+        className="post-form"
+        onSubmit={ this._submitHandler.bind(this) }
+        loading= { this.props.posts.isFetching }>
+      <Form.Field className="post-form-field-title">
+        <label className="field-label">Title</label>
+        <input
+          name='title'
           placeholder='Title'
           value={ this.state.title }
           onChange = { this._onChangeInputHandler.bind(this) } />
       </Form.Field>
-      <Form.Field>
-        <label>Contents</label>
-        <TextArea 
-          className='contentTextArea'
-          name='content' 
-          placeholder='Please enter your input' 
+      <Form.Field className="post-form-field-content">
+        <label className="field-label">Contents</label>
+        <TextArea
+          className='content-text-area'
+          name='content'
+          placeholder='Please enter your input'
           value={ this.state.content }
           onChange = { this._onChangeInputHandler.bind(this) } />
       </Form.Field>

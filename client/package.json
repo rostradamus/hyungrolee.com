@@ -57,10 +57,7 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "proxy": {
-    "/api/user/*": {
-      "target": "http://localhost:5000"
-    },
-    "/api/posts/*": {
+    "/api/*": {
       "target": "http://localhost:5000"
     }
   },

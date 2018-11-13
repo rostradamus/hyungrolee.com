@@ -1,19 +1,18 @@
-import Auth from './Auth';
-import AuthModal from './AuthModal';
-import PostCard from './PostCard';
-import PostForm from './PostForm';
-import PostList from './PostList';
-import PostDetail from './PostDetail';
-import Register from './Register';
 import PageNotFound from './PageNotFound';
+import { Auth, AuthModal, Register} from "./auth";
+import { PostCard, PostContent, PostCardList, PostForm, PostContainer } from "./post";
+import { CommentItem, CommentForm } from "./comment";
 
 export {
   Auth,
   AuthModal,
   PostCard,
   PostForm,
-  PostList,
-  PostDetail,
+  PostCardList,
+  PostContent,
+  PostContainer,
   Register,
-  PageNotFound
+  PageNotFound,
+  CommentForm,
+  CommentItem
 };
