@@ -51,18 +51,16 @@ require('./models/Post');
 // const commentController = require('./routes/commentController');
 // app.use("/api/comments", commentController);
 
-
-
-
-// // Serve application level controller
-// app.get('/*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//   })
-// });
 const routes = require('./routes');
-app.use("/", routes);
+app.use("/api", routes);
+
+// Serve application level controller
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'), err => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  })
+});
 
 app.listen(5000);
