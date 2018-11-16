@@ -21,9 +21,15 @@ passport.use(new LocalStrategy({
       if (!user) {
         return done(null, false, { message: 'Incorrect email.' });
       }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      const { _id, userName } = user;
-      return done(null, { _id, userName });
+      user.verifyPassword(password)
+        .then(valid => {
+          if (!valid) return done(null, false);
+          const { _id, userName } = user;
+          return done(null, { _id, userName });
+        })
+        .catch(err => {
+          return done(null, false);
+        });
     });
   })
 );
