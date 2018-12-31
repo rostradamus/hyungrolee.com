@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal } from './contents';
-import { Header, SlideBar } from './frames';
+import { Header, SlideBar, Landing } from './frames';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Segment } from 'semantic-ui-react';
 import { AuthActions } from 'Actions';
@@ -64,7 +64,7 @@ class App extends Component {
   _renderAuthRoutes() {
     return (
         <Switch>
-          <Route key="landing" exact path="/" component={PostCardList} />
+          <Route key="landing" exact path="/" component={Landing} />
           <Route key='post_list' path="/post/list" component={PostCardList} />
           <Route key='post_detail' path="/post/detail/:postId" component={PostContainer} />
           <Route key="register" path={ REGISTER_PATH } component={ Register } />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Header, Item } from 'semantic-ui-react';
 
 class PageNotFound extends Component {
 
@@ -8,10 +9,16 @@ class PageNotFound extends Component {
 
     render() {
         return (
-            <div>
-              <h3>404 page not found</h3>
-              <p>We are sorry but the page you are looking for does not exist.</p>
-            </div>
+          <Container
+            textAlign="center">
+            <Header
+              as="h2"
+              content="404 page not found"
+              inverted />
+            <Item>
+              We are sorry but the page you are looking for does not exist.
+            </Item>
+          </Container>
         );
     }
 }

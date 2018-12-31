@@ -95,7 +95,10 @@ class Header extends Component {
             header
             position='left'
             content="ro.stradamus"
-            onClick={ this._handleClickSlideBar.bind(this) } />
+            as={ Link }
+            to="/"
+            /*onClick={ this._handleClickSlideBar.bind(this) }*/
+            onClick={ this._handleItemClick.bind(this) } />
           <Menu.Item
             className="header_item"
             position='right'
