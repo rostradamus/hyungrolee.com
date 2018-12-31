@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
-import { Container, Header, Button, Icon } from 'semantic-ui-react';
+import { Grid, Header, Button, Icon } from 'semantic-ui-react';
 import './Landing.less';
-
-// const sectionStyle = {
-//   width: "100%",
-//   height: "400px"
-// };
 
 class Landing extends Component {
 
   render() {
     return (
-      <Container
-        textAlign="center">
-        <Header
+      <Grid
+        textAlign="center"
+        verticalAlign="bottom"
+        columns={1}
+        centered
+        style={{
+          height: "90%"
+        }}>
+        <Grid.Row style={{ maxWidth:450 }}>
+        <Grid.Column
+          textAlign="center">
+          <Header
           as="h2"
           content="ro.stradamus"
           inverted
           style={{
             fontSize: "4em",
-            fontWeight: "normal",
-            verticalAlign: "middle"
+            fontWeight: "normal"
           }} />
-        <Container
-          textAlgin="center"
-          style={{
-            marginTop: "2rem"
-          }} >
-          <Button
+        </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+        <Grid.Column
+          textAlign="center">
+        <Button
             color='github'
             as="a"
             href="https://github.com/rostradamus">
@@ -36,7 +39,7 @@ class Landing extends Component {
           <Button
             color='instagram'
             as="a"
-            href="https://github.com/rostradamus">
+            href="https://drive.google.com/file/d/1CH2IE9PEvqxr7L9axM8i3cAskKus8VMB/view?usp=sharing">
             <Icon name='address book' /> Resume
           </Button>
           <Button
@@ -45,8 +48,9 @@ class Landing extends Component {
             href="https://www.linkedin.com/in/hyung-ro-lee-974b43168/">
             <Icon name="linkedin" /> LinkedIn
           </Button>
-        </Container>
-      </Container>
+          </Grid.Column>
+          </Grid.Row>
+      </Grid>
     );
   }
 }

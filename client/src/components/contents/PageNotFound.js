@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Item } from 'semantic-ui-react';
+import { Grid, Header, Item, Icon } from 'semantic-ui-react';
 
 class PageNotFound extends Component {
 
@@ -9,16 +9,29 @@ class PageNotFound extends Component {
 
     render() {
         return (
-          <Container
-            textAlign="center">
-            <Header
-              as="h2"
-              content="404 page not found"
-              inverted />
-            <Item>
-              We are sorry but the page you are looking for does not exist.
-            </Item>
-          </Container>
+          <Grid
+            textAlign="center"
+            verticalAlign="middle"
+            centered
+            style={{
+              height: "80%"
+            }}>
+            <Grid.Row
+             textAlign="center"
+             style={{ maxWidth:450 }}>
+              <Grid.Column
+                textAlign="center">
+                <Icon name="ambulance" size="massive"/>
+                <Header
+                  as="h2"
+                  content="404 page not found"
+                  inverted />
+                <Item>
+                  We are sorry but the page you are looking for does not exist.
+                </Item>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         );
     }
 }

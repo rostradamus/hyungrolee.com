@@ -40,7 +40,7 @@ class App extends Component {
         <div className='App'>
           <Header toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
           <SlideBar
-            pusher={ <Segment inverted className="appBody" content={segment} /> }
+            pusher={ <Segment inverted className="app-body" content={segment} /> }
             visible={ this.state.slideBarVisible } />
           <AuthModal />
         </div>
