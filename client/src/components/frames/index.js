@@ -1,9 +1,9 @@
-import Header from './Header';
+import NavBar from './NavBar';
 import SlideBar from './SlideBar';
 import Landing from './Landing';
 
 export {
-  Header,
+  NavBar,
   SlideBar,
   Landing
 };

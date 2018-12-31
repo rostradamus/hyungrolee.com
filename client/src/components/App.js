@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal } from './contents';
-import { Header, SlideBar, Landing } from './frames';
+import { NavBar, SlideBar, Landing } from './frames';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Segment } from 'semantic-ui-react';
 import { AuthActions } from 'Actions';
@@ -38,7 +38,7 @@ class App extends Component {
     return (
       <Router>
         <div className='App'>
-          <Header toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
+          <NavBar toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
           <SlideBar
             pusher={ <Segment inverted className="app-body" content={segment} /> }
             visible={ this.state.slideBarVisible } />

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu, Segment } from 'semantic-ui-react';
-import './Header.less';
+import './NavBar.less';
 
-class Header extends Component {
+class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,7 @@ class Header extends Component {
     const result =
       <Menu.Item
         position='right'
-        className='header_item'
+        className='navbar-right-item'
         as={ Link }
         to={ path }
         key={ name }
@@ -47,7 +47,7 @@ class Header extends Component {
       case false:
         return (
             <Menu.Item
-              className='header_item'
+              className='navbar-right-item'
               position='right'
               key='login'
               name='login'
@@ -57,7 +57,7 @@ class Header extends Component {
       default:
         return (
             <Menu.Item
-            className='header_item'
+            className='navbar-right-item'
             position='right'
             key='logout'
             name='logout'
@@ -88,10 +88,10 @@ class Header extends Component {
     const { activeItem } = this.state;
 
     return (
-      <Segment className='frame_header'>
+      <Segment className='navbar-segment'>
         <Menu pointing secondary inverted>
           <Menu.Item
-            className="header_item"
+            className="navbar-left-item"
             header
             position='left'
             content="ro.stradamus"
@@ -100,7 +100,7 @@ class Header extends Component {
             /*onClick={ this._handleClickSlideBar.bind(this) }*/
             onClick={ this._handleItemClick.bind(this) } />
           <Menu.Item
-            className="header_item"
+            className="navbar-right-item"
             position='right'
             as={ Link }
             to='/about'
@@ -120,4 +120,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(NavBar);
