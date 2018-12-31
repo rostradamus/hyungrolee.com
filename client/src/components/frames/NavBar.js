@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Menu, Segment, Dropdown, Icon } from 'semantic-ui-react';
-import './NavBar.less';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Menu, Segment, Dropdown, Icon } from "semantic-ui-react";
+import "./NavBar.less";
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: ''
+      activeItem: ""
     };
   }
 
@@ -29,8 +29,8 @@ class NavBar extends Component {
 
     return (
       <Menu.Item
-        position='right'
-        className='navbar-right-item'
+        position="right"
+        className="navbar-right-item"
         as={ Link }
         to={ path }
         key={ name }
@@ -41,40 +41,34 @@ class NavBar extends Component {
   }
 
   _renderAuthMenuItem() {
-    switch (this._getAuthStatus()) {
-      case undefined:
-      case null:
-      case false:
-        return (
-            <Menu.Item
-              className='navbar-right-item'
-              position='right'
-              key='login'
-              name='login'
-              as={ Link }
-              to='/login' />
-          );
-      default:
-        return (
-            <Menu.Item
-            className='navbar-right-item'
-            position='right'
-            key='logout'
-            name='logout'
-            href='/api/user/logout' />
-          );
-    }
+    return this._getAuthStatus() ?
+      (
+        <Menu.Item
+        className="navbar-right-item"
+        position="right"
+        key="logout"
+        name="logout"
+        href="/api/user/logout" />
+      ) : (
+        <Menu.Item
+          className="navbar-right-item"
+          position="right"
+          key="login"
+          name="login"
+          as={ Link }
+          to="/login" />
+      );
   }
 
   _renderUserNavigation() {
     const menuItems = [
       {
-        path: '/post/list',
-        name: 'blog'
+        path: "/post/list",
+        name: "blog"
       },
       {
-        path: '/project',
-        name: 'project'
+        path: "/project",
+        name: "project"
       }
     ];
     return menuItems.map(data => this._createItemRight(data));
@@ -120,11 +114,11 @@ class NavBar extends Component {
 
   render() {
     return (
-      <Segment className='navbar-segment'>
+      <Segment className="navbar-segment">
         <Menu pointing secondary inverted>
           <Menu.Item header
             className="navbar-left-item"
-            position='left'
+            position="left"
             content="ro.stradamus"
             as={ Link }
             to="/"

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Grid, Header, Button, Icon } from 'semantic-ui-react';
-import './Landing.less';
+import React, { Component } from "react";
+import { Grid, Header, Button, Icon } from "semantic-ui-react";
+import "./Landing.less";
 
 class Landing extends Component {
 
@@ -31,16 +31,16 @@ class Landing extends Component {
         <Grid.Column
           textAlign="center">
         <Button
-            color='github'
+            color="github"
             as="a"
             href="https://github.com/rostradamus">
-            <Icon name='github' /> GitHub
+            <Icon name="github" /> GitHub
           </Button>
           <Button
-            color='instagram'
+            color="instagram"
             as="a"
             href="https://drive.google.com/file/d/1CH2IE9PEvqxr7L9axM8i3cAskKus8VMB/view?usp=sharing">
-            <Icon name='address book' /> Resume
+            <Icon name="address book" /> Resume
           </Button>
           <Button
             color="linkedin"

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Grid, Header, Item, Icon } from 'semantic-ui-react';
+import React, { Component } from "react";
+import { Grid, Header, Item, Icon } from "semantic-ui-react";
 
 class PageNotFound extends Component {
 
