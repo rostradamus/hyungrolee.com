@@ -17,6 +17,7 @@ Release update for production build is as following:
 **1.0.1**
 ``` markdown
 1. Release Coming soon
+2. Jenkins release test
 ```
 
 **1.0.0** _(2018.05.22)_
