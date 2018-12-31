@@ -34,13 +34,13 @@ class App extends Component {
   }
 
   render() {
-    const segment = (this.props.user && this.props.user._id) ? this._renderRoutes() : this._renderAuthRoutes();
+    const bodyContent = (this.props.user && this.props.user._id) ? this._renderRoutes() : this._renderAuthRoutes();
     return (
       <Router>
         <div className='App'>
           <NavBar toggleHandler={ this._sendToggleToSlideBar.bind(this) } />
           <SlideBar
-            pusher={ <Segment inverted className="app-body" content={segment} /> }
+            pusher={ <Segment inverted className="app-body" content={bodyContent} /> }
             visible={ this.state.slideBarVisible } />
           <AuthModal />
         </div>
@@ -51,7 +51,7 @@ class App extends Component {
   _renderRoutes() {
     return (
         <Switch>
-          <Route key="landing" exact path="/" component={PostCardList} />
+          <Route key="landing" exact path="/" component={Landing} />
           <Route key='post_list' path="/post/list" component={PostCardList} />
           <Route key='post_form' exact path="/post/new/" component={PostContainer} content={PostForm}/>
           <Route key='post_edit' path="/post/edit/:postId" component={PostContainer} content={PostForm} />

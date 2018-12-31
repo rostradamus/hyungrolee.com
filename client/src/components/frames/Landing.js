@@ -12,7 +12,7 @@ class Landing extends Component {
         columns={1}
         centered
         style={{
-          height: "90%"
+          height: "100%"
         }}>
         <Grid.Row style={{ maxWidth:450 }}>
         <Grid.Column
