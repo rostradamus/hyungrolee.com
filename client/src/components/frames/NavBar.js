@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Menu, Segment, Dropdown } from 'semantic-ui-react';
+import { Menu, Segment, Dropdown, Icon } from 'semantic-ui-react';
 import './NavBar.less';
 
 class NavBar extends Component {
@@ -26,7 +26,8 @@ class NavBar extends Component {
 
   _createItemRight({path, name}) {
     const { activeItem } = this.state;
-    const result =
+
+    return (
       <Menu.Item
         position='right'
         className='navbar-right-item'
@@ -35,12 +36,11 @@ class NavBar extends Component {
         key={ name }
         name={ name }
         active={activeItem === name}
-        onClick={this._handleItemClick.bind(this)} />;
-
-    return result;
+        onClick={this._handleItemClick.bind(this)} />
+    );
   }
 
-  renderContent() {
+  _renderAuthMenuItem() {
     switch (this._getAuthStatus()) {
       case undefined:
       case null:
@@ -66,79 +66,93 @@ class NavBar extends Component {
     }
   }
 
-  renderUserNavigation() {
+  _renderUserNavigation() {
     const menuItems = [
       {
         path: '/post/list',
         name: 'blog'
       },
       {
-        path: '/portfolio',
-        name: 'portfolio'
+        path: '/project',
+        name: 'project'
       }
     ];
     return menuItems.map(data => this._createItemRight(data));
   }
 
-  render() {
-    const { activeItem } = this.state;
+  _renderNetworkDropdown() {
+    return (
+      <Menu.Menu
+        position="right"
+        className="navbar-right-item">
+        <Dropdown floating item text="Network">
+          <Dropdown.Menu>
+            <Dropdown.Item
+              icon="github"
+              text="Github"
+              as= "a"
+              href="https://github.com/rostradamus"/>
+            <Dropdown.Item
+              icon="linkedin"
+              text="Linkdin"
+              as="a"
+              href="https://www.linkedin.com/in/hyung-ro-lee-974b43168/"/>
+            <Dropdown.Item
+              icon="instagram"
+              text="Instagram"
+              as="a"
+              href="https://www.instagram.com/ro.stradamus/"/>
+            <Dropdown.Item
+              icon="google plus"
+              text="Google+"
+              as="a"
+              href="https://plus.google.com/u/0/110409238753873906984"/>
+            <Dropdown.Item
+              icon="mail"
+              text="Email"
+              as="a"
+              href="mailto: rolee0429@gmail.com"/>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu.Menu>
+    );
+  }
 
+  render() {
     return (
       <Segment className='navbar-segment'>
         <Menu pointing secondary inverted>
-          <Menu.Item
+          <Menu.Item header
             className="navbar-left-item"
-            header
             position='left'
             content="ro.stradamus"
             as={ Link }
             to="/"
-            /*onClick={ this._handleClickSlideBar.bind(this) }*/
             onClick={ this._handleItemClick.bind(this) } />
-          <Menu.Item
-            className="navbar-right-item"
-            position='right'
-            as={ Link }
-            to='/about'
-            key='about'
-            name='about'
-            active={activeItem === 'about'}
-            onClick={ this._handleItemClick.bind(this)} />
-          { this.renderUserNavigation() }
-          <Menu.Menu
-            position="right"
-            className="navbar-right-item">
-            <Dropdown floating item text="Network">
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  icon="github"
-                  text="Github"
-                  as= "a"
-                  href="https://github.com/rostradamus"/>
-                <Dropdown.Item
-                  icon="linkedin"
-                  text="Linkdin"
-                  as="a"
-                  href="https://www.linkedin.com/in/hyung-ro-lee-974b43168/"/>
-                <Dropdown.Item
-                  icon="instagram"
-                  text="Instagram"
-                  as="a"
-                  href="https://www.instagram.com/ro.stradamus/"/>
-                <Dropdown.Item
-                  icon="google plus"
-                  text="Google+"
-                  as="a"
-                  href="https://plus.google.com/u/0/110409238753873906984"/>
-                <Dropdown.Item
-                  icon="mail"
-                  text="Email"
-                  as="a"
-                  href="mailto: rolee0429@gmail.com"/>
-              </Dropdown.Menu>
-            </Dropdown>
+          { this._renderUserNavigation() }
+          { this._renderAuthMenuItem() }
+          <Menu.Menu position="right" className="navbar-icon-group">
+            <Menu.Item icon
+              as="a"
+              href="https://github.com/rostradamus">
+              <Icon name="github" size="large" />
+            </Menu.Item>
+            <Menu.Item icon
+              as="a"
+              href="https://www.linkedin.com/in/hyung-ro-lee-974b43168/">
+              <Icon name="linkedin" size="large" />
+            </Menu.Item>
+            <Menu.Item icon
+              as="a"
+              href="mailto: rolee0429@gmail.com">
+              <Icon name="mail" size="large" />
+            </Menu.Item>
+            <Menu.Item icon
+              as="a"
+              href="https://www.instagram.com/ro.stradamus/">
+              <Icon name="instagram" size="large" />
+            </Menu.Item>
           </Menu.Menu>
-          { this.renderContent() }
         </Menu>
       </Segment>
       );
