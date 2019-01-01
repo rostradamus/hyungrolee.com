@@ -18,7 +18,8 @@ class Auth extends Component {
   async _submitHandler() {
     try {
       const {email, password} = this.state;
-      await this.props.login(email, password);
+      await this.props.login({email, password});
+      this.props.history.push("/");
     } catch (e) {
       this.props.openModal(e.message);
     }
@@ -71,8 +72,8 @@ class Auth extends Component {
 
 const mapStateToProps = state => ({user: state.auth});
 const mapDispatchToProps = dispatch => ({
-  login: async (email, password) => {
-    await dispatch(AuthActions.login(email, password));
+  login: async data => {
+    await dispatch(AuthActions.login(data));
   },
   openModal: content => {
     dispatch(ModalActions.openModal(content));
