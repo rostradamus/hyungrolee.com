@@ -1,22 +1,44 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Button, Form, TextArea } from 'semantic-ui-react';
-import { PostActions } from 'Actions';
-import './PostForm.less';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Button, Form, TextArea } from "semantic-ui-react";
+import { PostActions } from "Actions";
+import { Editor } from "slate-react";
+import { Value } from "slate";
+import "./PostForm.less";
 
 class PostForm extends Component {
 
   constructor(props) {
     super(props);
-    const bIsEditMode = props.match.params.postId ? true : false;
-    if (bIsEditMode) {
+    if (props.match.params.postId) {
       this._getFormContent(props.match.params.postId);
     }
+    const initialValue = Value.fromJSON({
+      document: {
+        nodes: [
+          {
+            object: 'block',
+            type: 'paragraph',
+            nodes: [
+              {
+                object: 'text',
+                leaves: [
+                  {
+                    text: 'A line of text in a paragraph.',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    });
     this.state = {
       title: "",
       author: props.user,
       content: "",
-      attachment: ""
+      attachment: "",
+      value: initialValue
     };
   }
 
@@ -34,6 +56,25 @@ class PostForm extends Component {
     });
   }
 
+  _onKeyDown(e, change) {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+
+    switch(e.key) {
+      case "b": {
+        change.addMark("bold");
+        return true;
+      }
+    }
+  }
+
+  _renderMark(props) {
+    switch(props.mark.type) {
+      case "bold":
+        return <strong>{ props.children }</strong>;
+    }
+  }
+
   async _getFormContent(postId) {
     await this.props.selectPost(postId);
     if (!this.props.posts.selected.bIsAuthor) {
@@ -45,31 +86,43 @@ class PostForm extends Component {
 
   render() {
 
+    // TODO: DELETE <div>
+    // Create our initial value...
+
+
     return (
-      <Form
-        inverted
-        className="post-form"
-        onSubmit={ this._submitHandler.bind(this) }
-        loading= { this.props.posts.isFetching }>
-      <Form.Field className="post-form-field-title">
-        <label className="field-label">Title</label>
-        <input
-          name='title'
-          placeholder='Title'
-          value={ this.state.title }
-          onChange = { this._onChangeInputHandler.bind(this) } />
-      </Form.Field>
-      <Form.Field className="post-form-field-content">
-        <label className="field-label">Contents</label>
-        <TextArea
-          className='content-text-area'
-          name='content'
-          placeholder='Please enter your input'
-          value={ this.state.content }
-          onChange = { this._onChangeInputHandler.bind(this) } />
-      </Form.Field>
-      <Button type='submit'>Submit</Button>
-      </Form>
+      <div>
+        <Editor
+          value= { this.state.value }
+          onChange = { ({ value }) => this.setState({ value }) }
+          onKeyDown = { this._onKeyDown.bind(this) }
+          renderMark = { this._renderMark.bind(this) }
+          />
+        <Form
+          inverted
+          className="post-form"
+          onSubmit={ this._submitHandler.bind(this) }
+          loading= { this.props.posts.isFetching }>
+        <Form.Field className="post-form-field-title">
+          <label className="field-label">Title</label>
+          <input
+            name="title"
+            placeholder="Title"
+            value={ this.state.title }
+            onChange = { this._onChangeInputHandler.bind(this) } />
+        </Form.Field>
+        <Form.Field className="post-form-field-content">
+          <label className="field-label">Contents</label>
+          <TextArea
+            className="content-text-area"
+            name="content"
+            placeholder="Please enter your input"
+            value={ this.state.content }
+            onChange = { this._onChangeInputHandler.bind(this) } />
+        </Form.Field>
+        <Button type="submit">Submit</Button>
+        </Form>
+      </div>
       );
   }
 }
