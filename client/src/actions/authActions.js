@@ -15,12 +15,12 @@ export default class AuthActions {
     };
   }
 
-  static login(email, password) {
+  static login(data) {
     return async dispatch => {
       let res;
-      dispatch(this._requestLogin({ email }));
+      dispatch(this._requestLogin({ email: data.email }));
       try {
-        res = await axios.post("/api/user", { email, password });
+        res = await axios.post("/api/user", data);
         dispatch(this._resolveLogin(res.data));
       } catch (err) {
         dispatch(this._failLogin(err));
