@@ -62,7 +62,7 @@ class PostForm extends Component {
 
     switch(e.key) {
       case "b": {
-        change.addMark("bold");
+        change.toggleMark("bold");
         return true;
       }
     }
