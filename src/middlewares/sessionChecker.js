@@ -15,7 +15,8 @@ const checkPath = (pathOption, req) => {
   return false;
 }
 const unlessPathInclude = (paths, middleware) => (req, res, next) => {
-  if (paths.some(path => checkPath(path, req))) {
+  const isAllowed = !req.path.startsWith("/api") || paths.some(path => checkPath(path, req));
+  if (isAllowed) {
     return next();
   }
   return middleware(req, res, next);
