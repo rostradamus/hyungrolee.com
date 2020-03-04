@@ -68,10 +68,6 @@ class NavBar extends Component {
   _renderUserNavigation() {
     const menuItems = [
       {
-        path: "/diaries",
-        name: "diary"
-      },
-      {
         path: "/post/list",
         name: "blog"
       },
@@ -80,6 +76,8 @@ class NavBar extends Component {
         name: "project"
       }
     ];
+    if (this._getAuthStatus())
+      menuItems.push({ path: "/diaries", name: "diary" });
     return menuItems.map(data => this._createItemRight(data));
   }
 

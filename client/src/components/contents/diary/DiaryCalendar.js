@@ -1,25 +1,41 @@
 import React, { Component } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import { fetchDiaries } from "Actions/DiaryActions";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { connect } from "react-redux";
 
 class DiaryCalendar extends Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchDiaries();
+  }
+
   render() {
+    const { diaries, onSelectSlot } = this.props;
     return (
       <Calendar
-        views = {['month']}
+        selectable
+        views = {["month"]}
         defaultView = "month"
         localizer={ momentLocalizer(moment) }
-        events={ [] }
+        events={ diaries.items }
         startAccessor="start"
         endAccessor="end"
+        onSelectSlot={ onSelectSlot }
         style={{ height: 750 }} />
     );
   }
 }
 
-export default DiaryCalendar;
+const mapStateToProps = state => ({
+  diaries: state.diaries
+});
+const mapDispatchToProps = dispatch => ({
+  fetchDiaries: () => dispatch(fetchDiaries())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiaryCalendar);

@@ -49,10 +49,10 @@ class App extends Component {
   }
 
   _renderRoutes() {
-
     return (
       <Switch>
         <Route key="landing" exact path="/" component={Landing} />
+        <Route key="diary" path="/diaries" component={DiaryContainer} />
         <Route key="post_list" path="/post/list" component={PostCardList} />
         <Route key="post_form" exact path="/post/new/" component={PostContainer} content={PostForm}/>
         <Route key="post_edit" path="/post/edit/:postId" component={PostContainer} content={PostForm} />
@@ -66,7 +66,6 @@ class App extends Component {
     return (
       <Switch>
         <Route key="landing" exact path="/" component={Landing} />
-        <Route key="diary" path="/diaries" component={DiaryContainer} />
         <Route key="post_list" path="/post/list" component={PostCardList} />
         <Route key="post_detail" path="/post/detail/:postId" component={PostContainer} />
         <Route key="register" path={ REGISTER_PATH } component={ Register } />
