@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Menu, Segment, Dropdown, Icon } from "semantic-ui-react";
+import { Menu, Segment, Icon } from "semantic-ui-react";
 import { AuthActions } from "Actions";
 import "./NavBar.less";
 
@@ -68,6 +68,10 @@ class NavBar extends Component {
   _renderUserNavigation() {
     const menuItems = [
       {
+        path: "/diaries",
+        name: "diary"
+      },
+      {
         path: "/post/list",
         name: "blog"
       },
@@ -77,44 +81,6 @@ class NavBar extends Component {
       }
     ];
     return menuItems.map(data => this._createItemRight(data));
-  }
-
-  _renderNetworkDropdown() {
-    return (
-      <Menu.Menu
-        position="right"
-        className="navbar-right-item">
-        <Dropdown floating item text="Network">
-          <Dropdown.Menu>
-            <Dropdown.Item
-              icon="github"
-              text="Github"
-              as= "a"
-              href="https://github.com/rostradamus"/>
-            <Dropdown.Item
-              icon="linkedin"
-              text="Linkdin"
-              as="a"
-              href="https://www.linkedin.com/in/hyung-ro-lee-974b43168/"/>
-            <Dropdown.Item
-              icon="instagram"
-              text="Instagram"
-              as="a"
-              href="https://www.instagram.com/ro.stradamus/"/>
-            <Dropdown.Item
-              icon="google plus"
-              text="Google+"
-              as="a"
-              href="https://plus.google.com/u/0/110409238753873906984"/>
-            <Dropdown.Item
-              icon="mail"
-              text="Email"
-              as="a"
-              href="mailto: rolee0429@gmail.com"/>
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Menu>
-    );
   }
 
   render() {

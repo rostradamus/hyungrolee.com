@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal } from "./contents";
+import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal, DiaryContainer } from "./contents";
 import { NavBar, SlideBar, Landing } from "./frames";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Segment } from "semantic-ui-react";
@@ -49,6 +49,7 @@ class App extends Component {
   }
 
   _renderRoutes() {
+
     return (
       <Switch>
         <Route key="landing" exact path="/" component={Landing} />
@@ -65,6 +66,7 @@ class App extends Component {
     return (
       <Switch>
         <Route key="landing" exact path="/" component={Landing} />
+        <Route key="diary" path="/diaries" component={DiaryContainer} />
         <Route key="post_list" path="/post/list" component={PostCardList} />
         <Route key="post_detail" path="/post/detail/:postId" component={PostContainer} />
         <Route key="register" path={ REGISTER_PATH } component={ Register } />
