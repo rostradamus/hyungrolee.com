@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal } from "semantic-ui-react";
+import { Modal, Form } from "semantic-ui-react";
 
 class DiaryModalForm extends Component {
   constructor(props) {
@@ -9,8 +9,17 @@ class DiaryModalForm extends Component {
   render() {
     const { isOpen, onClose } = this.props;
     return (
-      <Modal className="diary-modal-form" closeIcon onClose={ onClose } open={ isOpen }>
-        Hello
+      <Modal closeIcon className="diary-modal-form"
+        style={{ minHeight: 500 }}
+        onClose={ onClose } open={ isOpen }>
+        <Modal.Header>
+          New Diary
+        </Modal.Header>
+        <Modal.Content>
+          <Form className="diary-form-content">
+
+          </Form>
+        </Modal.Content>
       </Modal>
     );
   }
