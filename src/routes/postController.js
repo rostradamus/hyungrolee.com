@@ -6,7 +6,7 @@ const commentController = require("@routes/posts/commentController");
 
 routes.get("/", (req, res) => {
   const order = { time: -1 };
-  Post.find({}).sort(order).exec((err, posts) => {
+  Post.find(req.query).sort(order).exec((err, posts) => {
     if (err) {
       return res.status(500).json(err);
     };
@@ -18,18 +18,23 @@ routes.get("/", (req, res) => {
 routes.get("/:id", (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     if (err) return res.status(500).json(err);
+    
+    post.readCount++;
     const oBody = Object.assign({}, post._doc, {bIsAuthor: req.user && req.user._id && post.authorId === `${req.user._id}`});
-    res.status(200);
-    res.send(oBody);
+    post.save((err, target) => {
+      if (err) return res.status(500).json(err);
+      res.status(200);
+      res.send(oBody);
+    });
   });
 });
 
 routes.post("/", (req, res) => {
     const post = new Post(Object.assign({}, req.body, { authorId: req.user._id }));
     post.save((err, target) => {
-        if (err) return res.status(500).json(err);
-        res.status(200);
-        res.send(target);
+      if (err) return res.status(500).json(err);
+      res.status(200);
+      res.send(target);
     });
 });
 

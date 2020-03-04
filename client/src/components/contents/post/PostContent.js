@@ -65,7 +65,7 @@ class PostContent extends Component {
           size="huge"
           className="post-content-title"
           content={ post.title }/>
-        <Header.Subheader content={ TimeUtils.makeTimeToLocalString(post.time) } />
+        <Header.Subheader content={ TimeUtils.makeTimeToLocalString(post.time) + ` / ${post.readCount} time(s) read` } />
         <Header.Subheader content={ "by " + post.author } />
         <Divider />
         <Item className="post-content-text" content={ post.content } />

@@ -24,6 +24,11 @@ class PostCardList extends Component {
     return this.props.user && this.props.user._id;
   }
 
+  onSearchInputChange(_e, { value }) {
+    console.log(value);
+    return true;
+  }
+
   render() {
     return (
       <div>
@@ -44,13 +49,13 @@ class PostCardList extends Component {
           </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item>
-              <Input icon="search" placeholder="Search..." />
+              <Input icon="search" placeholder="Search..." onChange={ this.onSearchInputChange.bind(this) }/>
             </Menu.Item>
           </Menu.Menu>
         </Menu>
 
         <Divider />
-        <Card.Group itemsPerRow="5" >
+        <Card.Group itemsPerRow="4" >
           { this.getPostCards() }
         </Card.Group>
       </div>
