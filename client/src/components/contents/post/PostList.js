@@ -40,7 +40,7 @@ class PostList extends Component {
 
   render() {
     return (
-      <Container>
+      <Container id="post-list-container">
         <Divider />
         <List divided relaxed inverted>
           { this.getListItem() }

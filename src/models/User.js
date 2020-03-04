@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
@@ -23,7 +23,7 @@ UserSchema.methods.verifyPassword = async function(password) {
 }
 
 if (process.env.NODE_ENV === "production") {
-  UserSchema.plugin(require('mongoose-bcrypt'));
+  UserSchema.plugin(require("mongoose-bcrypt"));
 }
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

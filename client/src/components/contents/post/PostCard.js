@@ -7,7 +7,8 @@ import "./PostCard.less";
 class PostCard extends Component {
 
   render() {
-    const { _id, title, time, content } = this.props.post;
+    const { _id, title, time, content, readCount } = this.props.post;
+    console.log(readCount);
 
     return (
       <Card className="postCard" color="grey">
@@ -21,7 +22,7 @@ class PostCard extends Component {
         </Card.Content>
         <Card.Content extra>
           <Icon name="user" />
-          22 Friends
+          { `${readCount} time(s) read` }
         </Card.Content>
       </Card>
     );

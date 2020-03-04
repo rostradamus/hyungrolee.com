@@ -8,7 +8,6 @@ routes.post("/",
     const { author, content } = req.body,
       post = req.params.post_id;
     const comment = new Comment({ post, author, content });
-    // const comment = new Comment(Object.assign, req.body, { authorId: req.user._id });
     comment.save((err, target) => {
       if (err) return res.status(500).json(err);
       res.status(200);
