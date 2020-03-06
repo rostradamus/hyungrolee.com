@@ -4,12 +4,14 @@ import postReducer from "./postReducer";
 import authReducer from "./authReducer";
 import modalReducer from "./modalReducer";
 import commentReducer from "./commentReducer";
+import DiaryReducer from "./DiaryReducer";
 
 const appReducer = combineReducers({
   auth: authReducer,
   posts: postReducer,
   modal: modalReducer,
-  comments: commentReducer
+  comments: commentReducer,
+  diaries: DiaryReducer
 });
 
 export default (state, action) => {

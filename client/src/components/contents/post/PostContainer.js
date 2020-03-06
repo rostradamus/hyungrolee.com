@@ -13,7 +13,6 @@ class PostContainer extends Component {
 
   render() {
     return (
-
       <Grid className="post-detail-container" columns={2} divided>
         <Grid.Column className="post-detail-content-section" width={10}>
           <Route key="post_form" exact path="/post/new/" component={PostForm} />
