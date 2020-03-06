@@ -28,7 +28,7 @@ class DiaryCalendar extends Component {
   }
 
   openDiaryContent(data) {
-    this.props.history.push(`diaries/${data.id}`);
+    this.props.history.push(`diaries/${data._id}`);
   }
 
   closeDiaryModalForm() {

@@ -9,8 +9,10 @@ module.exports = server => {
   mongoose.set('useFindAndModify', false);
   mongoose.Promise = global.Promise;
   mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}`, {
+    useFindAndModify: false,
     useCreateIndex: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   }).then(
     () => {
       console.log("Successfully connected to database");
