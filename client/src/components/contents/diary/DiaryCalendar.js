@@ -4,6 +4,7 @@ import moment from "moment";
 import { fetchDiaries } from "Actions/DiaryActions";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 class DiaryCalendar extends Component {
   constructor(props) {
@@ -34,8 +35,8 @@ class DiaryCalendar extends Component {
 const mapStateToProps = state => ({
   diaries: state.diaries
 });
-const mapDispatchToProps = dispatch => ({
-  fetchDiaries: () => dispatch(fetchDiaries())
-});
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchDiaries
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(DiaryCalendar);
