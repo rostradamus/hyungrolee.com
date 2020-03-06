@@ -3,10 +3,9 @@ import { DIARY_ACTION_TYPES } from "Actions/actionTypes";
 const initialState = {
   isFetching: false,
   items: [],
-  selected: {},
+  selected: null,
   err: null
 };
-let counter = 5;
 export default (state = initialState, action) => {
   switch (action.type) {
   case DIARY_ACTION_TYPES.FETCH_REQUEST:
@@ -16,10 +15,10 @@ export default (state = initialState, action) => {
   case DIARY_ACTION_TYPES.FETCH_SUCCESS: {
     return Object.assign({...state}, {isFetching: false}, action.payload);
   }
-  case DIARY_ACTION_TYPES.ADD_SUCCESS: {
 
-    const newItems = state.items.concat({...action.payload, id: counter++});
-    return Object.assign({...state}, {isFetching: false, items: newItems});
+  case DIARY_ACTION_TYPES.ADD_SUCCESS: {
+    const newItems = state.items.concat(action.payload);
+    return Object.assign({...state}, { isFetching: false, items: newItems });
   }
 
   case DIARY_ACTION_TYPES.EDIT_REQUEST:

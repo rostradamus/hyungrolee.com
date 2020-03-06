@@ -1,48 +1,46 @@
 import { DIARY_ACTION_TYPES } from "./actionTypes";
 import moment from "moment";
+import axios from "axios";
 
-const mockEvents = [
-  {
-    id: 1,
-    title: "Sample Event 1",
-    start: moment(),
-    end: moment(),
-    allDay: true,
-    content: "Sample Event 1"
-  }, {
-    id: 2,
-    title: "Sample Event 2",
-    start: moment().add(1, "day"),
-    end: moment().add(1, "day"),
-    allDay: true,
-    content: "Sample Event 2"
-  }, {
-    id: 3,
-    title: "Sample Event 3",
-    start: moment().add(2, "day"),
-    end: moment().add(2, "day"),
-    allDay: true,
-    content: "Sample Event 3"
-  }, {
-    id: 4,
-    title: "Sample Event 4",
-    start: moment().add(3, "day"),
-    end: moment().add(3, "day"),
-    allDay: true,
-    content: "Sample Event 4"
-  }
-];
 export const fetchDiaries = () => {
   return async dispatch => {
+    let res;
     dispatch({
       type: DIARY_ACTION_TYPES.FETCH_REQUEST
     });
     try {
-      // res = await axios.get("/api/posts");
+      res = await axios.get("/api/diaries");
+      res = res.data.map(convertDateType);
       dispatch({
         type: DIARY_ACTION_TYPES.FETCH_SUCCESS,
         payload: {
-          items: mockEvents
+          items: res
+        }
+      });
+    } catch (err) {
+      dispatch({
+        type: DIARY_ACTION_TYPES.FETCH_FAILURE,
+        payload: {
+          err: err.message
+        }
+      });
+    }
+  };
+};
+
+export const fetchDiaryById = id => {
+  return async dispatch => {
+    let res;
+    dispatch({
+      type: DIARY_ACTION_TYPES.FETCH_REQUEST
+    });
+    try {
+      res = await axios.get(`/api/diaries/${id}`);
+      const selected = convertDateType(res.data);
+      dispatch({
+        type: DIARY_ACTION_TYPES.FETCH_SUCCESS,
+        payload: {
+          selected: selected
         }
       });
     } catch (err) {
@@ -58,14 +56,15 @@ export const fetchDiaries = () => {
 
 export const addDiary = data => {
   return async dispatch => {
+    let res;
     dispatch({
       type: DIARY_ACTION_TYPES.ADD_REQUEST
     });
     try {
-      // res = await axios.get("/api/posts");
+      res = await axios.post("/api/diaries", data);
       dispatch({
         type: DIARY_ACTION_TYPES.ADD_SUCCESS,
-        payload: data
+        payload: res.data
       });
     } catch (err) {
       dispatch({
@@ -77,3 +76,21 @@ export const addDiary = data => {
     }
   };
 };
+
+export const unmountSelected = () => {
+  return dispatch => {
+    dispatch({
+      type: DIARY_ACTION_TYPES.FETCH_SUCCESS,
+      payload: {
+        selected: null
+      }
+    });
+  };
+};
+
+const convertDateType = rawItem =>
+  Object.assign({...rawItem }, {
+    start: moment(rawItem.start),
+    end: moment(rawItem.end),
+    created_at: moment(rawItem.created_at)
+  });
