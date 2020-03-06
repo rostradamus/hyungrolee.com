@@ -1,6 +1,7 @@
 import PageNotFound from "./PageNotFound";
 import { Auth, AuthModal, Register} from "./auth";
 import { PostCard, PostContent, PostCardList, PostForm, PostContainer } from "./post";
+import { DiaryContainer } from "./diary";
 import { CommentItem, CommentForm } from "./comment";
 
 export {
@@ -14,5 +15,6 @@ export {
   Register,
   PageNotFound,
   CommentForm,
-  CommentItem
+  CommentItem,
+  DiaryContainer
 };

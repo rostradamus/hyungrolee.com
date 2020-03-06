@@ -2,12 +2,12 @@ import { USER_ACTION_TYPES } from "./actionTypes";
 import axios from "axios";
 
 export default class UserActions {
-  static register(oBody) {
+  static register(body) {
     return async dispatch => {
       let res;
-      dispatch(this._requestRegister(oBody));
+      dispatch(this._requestRegister(body));
       try {
-        res = await axios.post("/api/users", oBody);
+        res = await axios.post("/api/users", body);
         dispatch(this._resolveRegister(res.data));
       } catch (err) {
         dispatch(this._failRegister(err));
