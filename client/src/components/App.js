@@ -49,16 +49,19 @@ class App extends Component {
   }
 
   _renderRoutes() {
+    const routes = [
+      <Route key="landing" exact path="/" component={Landing} />,
+      <Route key="post_list" path="/post/list" component={PostCardList} />,
+      <Route key="post_form" exact path="/post/new/" component={PostContainer} content={PostForm}/>,
+      <Route key="post_edit" path="/post/edit/:postId" component={PostContainer} content={PostForm} />,
+      <Route key="post_detail" path="/post/detail/:postId" component={PostContainer} />
+    ];
+    if (this.props.user.canManageDiary) {
+      routes.push(<Route key="diary" path="/diaries" component={DiaryContainer} />);
+    }
+    routes.push(<Route key="page_404" path="*" component= { PageNotFound } />);
     return (
-      <Switch>
-        <Route key="landing" exact path="/" component={Landing} />
-        <Route key="diary" path="/diaries" component={DiaryContainer} />
-        <Route key="post_list" path="/post/list" component={PostCardList} />
-        <Route key="post_form" exact path="/post/new/" component={PostContainer} content={PostForm}/>
-        <Route key="post_edit" path="/post/edit/:postId" component={PostContainer} content={PostForm} />
-        <Route key="post_detail" path="/post/detail/:postId" component={PostContainer} />
-        <Route key="page_404" path="*" component= { PageNotFound } />
-      </Switch>
+      <Switch>{routes}</Switch>
     );
   }
 

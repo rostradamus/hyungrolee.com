@@ -1,27 +1,15 @@
 import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 import { Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { fetchDiaries } from "Actions/DiaryActions";
 import DiaryCalendar from "./DiaryCalendar";
-import DiaryModalForm from "./DiaryModalForm";
+import DiaryContent from "./DiaryContent";
 
 class DiaryContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isModalFormOpen: false
-    };
-  }
-
-  openDiaryModalForm() {
-    this.setState({
-      isModalFormOpen: true
-    });
-  }
-
-  closeDiaryModalForm() {
-    this.setState({
-      isModalFormOpen: false
-    });
   }
 
   render() {
@@ -30,14 +18,22 @@ class DiaryContainer extends Component {
         <Grid.Column>
           <Route
             key="diary_calendar" exact path="/diaries"
-            component={ () => <DiaryCalendar onSelectSlot={ this.openDiaryModalForm.bind(this) }/> } />
+            component={ DiaryCalendar } />
+          <Route
+            key="diary_content" path="/diaries/:id"
+            component={ DiaryContent } />
         </Grid.Column>
-        <DiaryModalForm
-          isOpen={ this.state.isModalFormOpen }
-          onClose= { this.closeDiaryModalForm.bind(this) } />
       </Grid>
     );
   }
 }
 
-export default DiaryContainer;
+const mapStateToProps = state => ({
+  diaries: state.diaries
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  fetchDiaries
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DiaryContainer);

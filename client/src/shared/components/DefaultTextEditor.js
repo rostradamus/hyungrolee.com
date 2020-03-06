@@ -17,7 +17,6 @@ const HOTKEYS = {
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const DefaultTextEditor = ({ value, onChange}) => {
-  // const [value, setValue] = useState(initialValue);
   const renderElement = useCallback(props => <Element {...props} />, []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
@@ -165,14 +164,5 @@ const MarkButton = ({ format, icon }) => {
     />
   );
 };
-
-// const initialValue = [
-//   {
-//     type: "paragraph",
-//     children: [
-//       { text: "" }
-//     ],
-//   }
-// ];
 
 export default DefaultTextEditor;

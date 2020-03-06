@@ -8,7 +8,6 @@ class PostCard extends Component {
 
   render() {
     const { _id, title, time, content, readCount } = this.props.post;
-    console.log(readCount);
 
     return (
       <Card className="postCard" color="grey">

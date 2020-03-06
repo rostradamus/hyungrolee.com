@@ -76,7 +76,7 @@ class NavBar extends Component {
         name: "project"
       }
     ];
-    if (this._getAuthStatus())
+    if (this._getAuthStatus() && this.props.auth.canManageDiary)
       menuItems.push({ path: "/diaries", name: "diary" });
     return menuItems.map(data => this._createItemRight(data));
   }
