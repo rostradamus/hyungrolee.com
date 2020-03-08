@@ -11,7 +11,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(
   cookieSession({
-    maxAge: 1 * 1 * 60 * 60 * 1000,
+    maxAge: 1 * 6 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_SESSION_KEY]
   })
 );
