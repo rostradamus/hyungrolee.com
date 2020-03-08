@@ -21,6 +21,16 @@ class DiaryCalendar extends Component {
     this.props.fetchDiaries();
   }
 
+  eventStyleGetter(event) {
+    const { author } = event;
+    const backgroundColor = author.email === "h77567324@nate.com" ? "#e9a451" : "3174ad";
+    return {
+      style: {
+        backgroundColor: backgroundColor
+      }
+    };
+  }
+
   openDiaryModalForm(data) {
     this.setState({
       selectedCalendarData: data
@@ -52,6 +62,7 @@ class DiaryCalendar extends Component {
           endAccessor="end"
           onSelectSlot={ this.openDiaryModalForm.bind(this) }
           onSelectEvent={ this.openDiaryContent.bind(this) }
+          eventPropGetter={ this.eventStyleGetter.bind(this) }
           style={{ height: 750 }} />
         <DiaryModalForm
           selectedCalendarData={ selectedCalendarData }
