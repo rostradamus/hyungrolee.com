@@ -8,7 +8,7 @@ module.exports = server => {
   };
   mongoose.set('useFindAndModify', false);
   mongoose.Promise = global.Promise;
-  mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}`, {
+  mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}?authSource=admin`, {
     useFindAndModify: false,
     useCreateIndex: true,
     useNewUrlParser: true,
