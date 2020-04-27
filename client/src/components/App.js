@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Segment } from "semantic-ui-react";
 import { AuthActions } from "Actions";
 import "./App.less";
+import { MapContainer } from "./contents/map";
 
 const LOGIN_PATH = "/login";
 const REGISTER_PATH = "/register";
@@ -58,6 +59,7 @@ class App extends Component {
     ];
     if (this.props.user.canManageDiary) {
       routes.push(<Route key="diary" path="/diaries" component={DiaryContainer} />);
+      routes.push(<Route key="map" path="/maps" component={MapContainer} />);
     }
     routes.push(<Route key="page_404" path="*" component= { PageNotFound } />);
     return (
