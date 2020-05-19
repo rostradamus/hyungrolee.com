@@ -2,7 +2,6 @@ const routes = require("express").Router();
 const passport = require("passport");
 const mongoose = require("mongoose");
 const LocalStrategy = require("passport-local").Strategy;
-require("@models/User");
 const User = mongoose.model("User");
 
 passport.serializeUser((user, done) => done(null, user._id));
@@ -21,6 +20,7 @@ passport.use(new LocalStrategy({
       if (!user) {
         return done(null, false, { message: "Incorrect email." });
       }
+      console.log(mongoose.Types.ObjectId(user._id).getTimestamp());
       user.verifyPassword(password)
         .then(valid => {
           if (!valid) return done(null, false);

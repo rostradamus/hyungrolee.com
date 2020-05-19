@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal, DiaryContainer } from "./contents";
+import { Auth, PostCardList, PostForm, PostContainer, Register, PageNotFound, AuthModal, DiaryContainer, NoteContainer } from "./contents";
 import { NavBar, SlideBar, Landing } from "./frames";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Segment } from "semantic-ui-react";
@@ -58,6 +58,7 @@ class App extends Component {
     ];
     if (this.props.user.canManageDiary) {
       routes.push(<Route key="diary" path="/diaries" component={DiaryContainer} />);
+      routes.push(<Route key="note" path="/note" component={NoteContainer} />);
     }
     routes.push(<Route key="page_404" path="*" component= { PageNotFound } />);
     return (

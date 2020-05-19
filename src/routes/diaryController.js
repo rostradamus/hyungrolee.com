@@ -1,5 +1,4 @@
 const routes = require("express").Router();
-require("@models/Diary");
 const Diary = require("mongoose").model("Diary");
 
 routes.get("/", (req, res) => {

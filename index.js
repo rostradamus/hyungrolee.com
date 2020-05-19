@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 const morgan = require("morgan");
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
@@ -37,7 +38,14 @@ const sessionChecker = require("@app/middlewares/sessionChecker");
 app.use(sessionChecker(whiteList));
 
 // Import models
-const models = require("@models");
+
+console.log("Loading Models...")
+const modelPath = path.join(__dirname, 'src/models')
+fs.readdirSync(modelPath)
+  .forEach(file => {
+    require(path.join(modelPath, file));
+    console.log("└─Imported " + file);
+  });
 
 // Serve API routes
 const routes = require("@routes");

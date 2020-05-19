@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Grid } from "semantic-ui-react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { fetchDiaries } from "Actions/DiaryActions";
 import DiaryCalendar from "./DiaryCalendar";
 import DiaryContent from "./DiaryContent";
 
@@ -32,8 +30,4 @@ const mapStateToProps = state => ({
   diaries: state.diaries
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchDiaries
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(DiaryContainer);
+export default connect(mapStateToProps)(DiaryContainer);

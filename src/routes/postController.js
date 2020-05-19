@@ -1,6 +1,5 @@
 const routes = require("express").Router();
 const mongoose = require("mongoose");
-require("@models/Post");
 const Post = mongoose.model("Post");
 const commentController = require("@routes/posts/commentController");
 
@@ -18,7 +17,7 @@ routes.get("/", (req, res) => {
 routes.get("/:id", (req, res) => {
   Post.findById(req.params.id, (err, post) => {
     if (err) return res.status(500).json(err);
-    
+
     post.readCount++;
     const oBody = Object.assign({}, post._doc, {bIsAuthor: req.user && req.user._id && post.authorId === `${req.user._id}`});
     post.save((err, target) => {

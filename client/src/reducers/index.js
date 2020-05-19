@@ -5,13 +5,15 @@ import authReducer from "./authReducer";
 import modalReducer from "./modalReducer";
 import commentReducer from "./commentReducer";
 import DiaryReducer from "./DiaryReducer";
+import NoteReducer from "./NoteReducer";
 
 const appReducer = combineReducers({
   auth: authReducer,
   posts: postReducer,
   modal: modalReducer,
   comments: commentReducer,
-  diaries: DiaryReducer
+  diaries: DiaryReducer,
+  note: NoteReducer
 });
 
 export default (state, action) => {

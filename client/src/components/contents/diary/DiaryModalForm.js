@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Modal, Form, Button, Icon } from "semantic-ui-react";
 import DefaultTextEditor from "Shared/components/DefaultTextEditor";
-import escapeHtml from "escape-html";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Text } from "slate";
 import { addDiary } from "Actions/DiaryActions";
+import { serializeTextValue } from "Utils/TextEditorUtils";
 
 const initialState = {
   title: "",
@@ -38,7 +37,7 @@ class DiaryModalForm extends Component {
 
   onSave() {
     const { selectedCalendarData } = this.props;
-    const serializedTextValue = this.state.textValue.reduce((acc, curr) => acc + this.serializeTextValue(curr), "");
+    const serializedTextValue = this.state.textValue.reduce((acc, curr) => acc + serializeTextValue(curr), "");
 
     this.props.addDiary({
       title: this.state.title,
@@ -49,47 +48,6 @@ class DiaryModalForm extends Component {
     });
 
     this.onClose();
-  }
-
-  serializeTextValue(node) {
-    if (Text.isText(node)) {
-      let serlializedLeaf = escapeHtml(node.text);
-      if (node.bold) {
-        serlializedLeaf = `<strong>${serlializedLeaf}</strong>`;
-      }
-
-      if (node.code) {
-        serlializedLeaf = `<code>${serlializedLeaf}</code>`;
-      }
-
-      if (node.italic) {
-        serlializedLeaf = `<em>${serlializedLeaf}</em>`;
-      }
-
-      if (node.underline) {
-        serlializedLeaf = `<u>${serlializedLeaf}</u>`;
-      }
-      return serlializedLeaf;
-    }
-
-    const children = node.children.map(n => this.serializeTextValue(n)).join("");
-
-    switch (node.type) {
-    case "quote":
-      return `<blockquote><p>${children}</p></blockquote>`;
-    case "bulleted-list":
-      return `<ul>${children}</ul>`;
-    case "heading-one":
-      return `<h1>${children}</h1>`;
-    case "heading-two":
-      return `<h2>${children}</h2>`;
-    case "list-item":
-      return `<li>${children}</li>`;
-    case "numbered-list":
-      return `<ol>${children}</ol>`;
-    default:
-      return `<p>${children}</p>`;
-    }
   }
 
   render() {

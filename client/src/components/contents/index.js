@@ -3,6 +3,7 @@ import { Auth, AuthModal, Register} from "./auth";
 import { PostCard, PostContent, PostCardList, PostForm, PostContainer } from "./post";
 import { DiaryContainer } from "./diary";
 import { CommentItem, CommentForm } from "./comment";
+import { NoteContainer } from "./note";
 
 export {
   Auth,
@@ -16,5 +17,6 @@ export {
   PageNotFound,
   CommentForm,
   CommentItem,
-  DiaryContainer
+  DiaryContainer,
+  NoteContainer
 };

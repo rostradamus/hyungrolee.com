@@ -9,7 +9,7 @@ const DiarySchema = new Schema({
   title: String,
   start: Date,
   end: Date,
-  created_at: { type : Date, default: Date.now },
+  created_at: { type: Date, default: Date.now },
   content: String
 }, { collection: 'Diary' });
 
