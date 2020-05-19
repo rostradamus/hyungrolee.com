@@ -1,5 +1,4 @@
 import { NOTE_ACTION_TYPES } from "./actionTypes";
-// import moment from "moment";
 import axios from "axios";
 
 export const fetchNote = () => {
@@ -40,6 +39,28 @@ export const initNote = (body) => {
     } catch (err) {
       dispatch({
         type: NOTE_ACTION_TYPES.ADD_FAILURE,
+        payload: err
+      });
+    }
+  };
+};
+
+export const editNote = (body) => {
+  return async dispatch => {
+    dispatch({
+      type: NOTE_ACTION_TYPES.EDIT_REQUEST
+    });
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    try {
+      const res = await axios.post("/api/note", body);
+      dispatch({
+        type: NOTE_ACTION_TYPES.EDIT_SUCCESS,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: NOTE_ACTION_TYPES.EDIT_FAILURE,
         payload: err
       });
     }

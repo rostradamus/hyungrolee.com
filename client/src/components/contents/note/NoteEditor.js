@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Form } from "semantic-ui-react";
 import DefaultTextEditor from "Shared/components/DefaultTextEditor";
 import { serializeTextValue } from "Utils/TextEditorUtils";
+import { editNote } from "Actions/NoteActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 const initialState = {
   title: "",
@@ -15,7 +18,7 @@ const initialState = {
   ]
 };
 
-export default class NoteEditor extends Component {
+class NoteEditor extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
@@ -53,3 +56,13 @@ export default class NoteEditor extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ note }) => ({
+  note: note
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  editNote
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NoteEditor);

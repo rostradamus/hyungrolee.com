@@ -32,7 +32,7 @@ const NoteContent = props => {
         size="huge"
         className="post-content-title"
         content={ title }/>
-      <Header sub inverted content={ "Last Edited at" + TimeUtils.makeTimeToLocalString(updated_at) } />
+      <Header sub inverted content={ "Last Edited at " + TimeUtils.makeTimeToLocalString(updated_at) } />
       <Header sub inverted content={ `by ${userName}` } />
       <Divider />
       <Item className="post-content-text" content={ content } />
@@ -44,5 +44,6 @@ const NoteContent = props => {
 const mapStateToProps = ({ note }) => ({
   note: note
 });
+
 
 export default connect(mapStateToProps)(NoteContent);

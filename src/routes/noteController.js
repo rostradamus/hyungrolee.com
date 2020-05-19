@@ -27,4 +27,16 @@ routes.post("/", async (req, res) => {
   }
 });
 
+routes.put("/", async (req, res) => {
+  try {
+    const author = req.user._id;
+    const note = new Note({...req.body, author});
+    const saved = await (await note.save()).populate("author").execPopulate();
+    res.status(200);
+    res.send(saved);
+  } catch (e) {
+    res.status(500).json(e);
+  }
+});
+
 module.exports = routes;
