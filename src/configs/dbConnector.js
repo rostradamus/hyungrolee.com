@@ -8,12 +8,23 @@ module.exports = server => {
   };
   mongoose.set('useFindAndModify', false);
   mongoose.Promise = global.Promise;
-  mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}?authSource=admin`, {
-    useFindAndModify: false,
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }).then(
+  let connection;
+  if (process.env.NODE_ENV === 'production') {
+    connection = mongoose.connect(`mongodb+srv://${db.user}:${db.pass}@${db.uri}?retryWrites=true&w=majority`, {
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+  } else {
+    connection = mongoose.connect(`mongodb://${db.user}:${db.pass}@${db.uri}?authSource=admin`, {
+      useFindAndModify: false,
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+  }
+  connection.then(
     () => {
       console.log("Successfully connected to database");
     },
